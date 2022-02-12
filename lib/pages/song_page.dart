@@ -72,13 +72,6 @@ class _SongPageState extends State<SongPage> {
                   child: emojiOperations.newFutureBuilderText(
                     songsCount,
                   )
-
-                  /* Text(
-                    "Skor: ${(imageCount - 1).toString()}",
-                    style: constants.returnTextStyle(constants.MAIN_TITLE_NO_3),
-                  )
-                  */
-                  ,
                 )
               ],
             ),

@@ -8,7 +8,6 @@ class EmojiOperations {
   Image getNextImg(String path, int index) {
     return Image.asset(
       'assets/img/$path/${index.toString()}.png',
-      //height: 60.0,
       fit: BoxFit.cover,
     );
   }
