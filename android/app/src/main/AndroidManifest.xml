@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.emoji_bulmaca">
+    package="com.maden.emoji_bulmaca">
    <application
         android:label="emoji_bulmaca"
         android:icon="@mipmap/ic_launcher">

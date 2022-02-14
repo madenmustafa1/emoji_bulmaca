@@ -19,9 +19,10 @@ class EmojiOperations {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         } else {
+          //
           return Text(
-            "Skor: ${snapshot.data.toString()}",
-            style: constants.returnTextStyle(constants.MAIN_TITLE_NO_3),
+            snapshot.data.toString(),
+            style: constants.returnTextStyle(constants.MAIN_TITLE_NO_2),
           );
         }
       },
@@ -29,7 +30,6 @@ class EmojiOperations {
   }
 
   Widget futureGetNextImg(String path, Future<int> songsCount) {
-
     return FutureBuilder<int>(
       future: songsCount,
       builder: (context, AsyncSnapshot<int> snapshot) {

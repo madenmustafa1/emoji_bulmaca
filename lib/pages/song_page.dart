@@ -1,7 +1,10 @@
 import 'package:emoji_bulmaca/utils/constants.dart';
 import 'package:emoji_bulmaca/utils/emoji_operations.dart';
+import 'package:emoji_bulmaca/widgets/constants_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 class SongPage extends StatefulWidget {
   final String heroTag;
@@ -21,6 +24,7 @@ class _SongPageState extends State<SongPage> {
 
   late Constants constants;
   late EmojiOperations emojiOperations;
+  late ConstantsWidgets constantsWidgets;
 
   late TextEditingController emojiTextController = TextEditingController();
 
@@ -35,6 +39,7 @@ class _SongPageState extends State<SongPage> {
   void initState() {
     constants = Constants();
     emojiOperations = EmojiOperations();
+    constantsWidgets = ConstantsWidgets();
 
     super.initState();
   }
@@ -42,7 +47,7 @@ class _SongPageState extends State<SongPage> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
-    
+
     queryData = MediaQuery.of(context);
 
     songsCount = _prefs.then((SharedPreferences prefs) {
@@ -52,7 +57,6 @@ class _SongPageState extends State<SongPage> {
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
 
     return Scaffold(
-      
       resizeToAvoidBottomInset: false, // set it to false
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -64,88 +68,82 @@ class _SongPageState extends State<SongPage> {
           children: [
             Row(
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 32,
-                ),
+                constantsWidgets.getSizedBox(context, 32),
+                //Scor icon
+                constantsWidgets.getIcon(Icons.star),
+                //Scor count
                 Align(
                   alignment: Alignment.centerLeft,
                   child: emojiOperations.newFutureBuilderText(
                     songsCount,
-                  )
+                  ),
                 )
               ],
             ),
             Hero(
               tag: widget.heroTag, //"emoji1",
-              child: Container(
-                height: queryData.size.height / 2.5,
-                //color: Colors.amber[300],
-                margin: const EdgeInsets.all(10),
-                child: Center(
-                  //Current emoji photo & change
-                  child: emojiOperations.futureGetNextImg(
-                    "songs",
-                    songsCount,
-                  ),
-                ),
-              ),
+              child: getNextImg(queryData),
             ),
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: bottomPadding),
-                      child: TextField(
-                        controller: emojiTextController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.teal)),
-                          hintText: 'Tahminin nedir?',
-                          helperText: 'Tahminin nedir?',
-                          labelText: 'Şarkıyı bul',
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: Colors.green,
-                          ),
-                          suffixStyle: TextStyle(color: Colors.green),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 22),
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: bottomPadding),
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height / 12,
-                        child: SizedBox(
-                          height: double.infinity,
-                          child: ElevatedButton(
-                            //Input control->
-                            onPressed: () {
-                              inputControl();
-                            },
-                            child: const Icon(Icons.send),
-                            style: ElevatedButton.styleFrom(
-                                primary: constants.BUTTON_COLOR),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+            inputDecoration(context, bottomPadding),
           ],
         ),
+      ),
+    );
+  }
+
+  Padding inputDecoration(BuildContext context, double bottomPadding) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 1.3,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: bottomPadding),
+              child: TextField(
+                controller: emojiTextController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal)),
+                  hintText: 'Tahminin nedir?',
+                  helperText: 'Tahminin nedir?',
+                  labelText: 'Şarkıyı bul',
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: Colors.green,
+                  ),
+                  suffixStyle: TextStyle(color: Colors.green),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 22),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: bottomPadding),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height / 12,
+                child: SizedBox(
+                  height: double.infinity,
+                  child: ElevatedButton(
+                    //Input control->
+                    onPressed: () {
+                      inputControl();
+                    },
+                    child: const Icon(Icons.send),
+                    style: ElevatedButton.styleFrom(
+                        primary: constants.BUTTON_COLOR),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -161,5 +159,19 @@ class _SongPageState extends State<SongPage> {
         _incrementImageCount(count + 1);
       });
     }
+  }
+
+  Container getNextImg(MediaQueryData queryData) {
+    return Container(
+      height: queryData.size.height / 2.5,
+      margin: const EdgeInsets.all(10),
+      child: Center(
+        //Current emoji photo & change
+        child: emojiOperations.futureGetNextImg(
+          "songs",
+          songsCount,
+        ),
+      ),
+    );
   }
 }

@@ -1,4 +1,4 @@
-package com.example.emoji_bulmaca
+package com.maden.emoji_bulmaca
 
 import io.flutter.embedding.android.FlutterActivity
 
