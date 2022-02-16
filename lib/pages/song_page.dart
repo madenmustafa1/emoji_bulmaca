@@ -1,10 +1,8 @@
 import 'package:emoji_bulmaca/utils/constants.dart';
-import 'package:emoji_bulmaca/utils/emoji_operations.dart';
+import 'package:emoji_bulmaca/widgets/emoji_operations.dart';
 import 'package:emoji_bulmaca/widgets/constants_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 class SongPage extends StatefulWidget {
   final String heroTag;
@@ -41,7 +39,12 @@ class _SongPageState extends State<SongPage> {
     emojiOperations = EmojiOperations();
     constantsWidgets = ConstantsWidgets();
 
+    getFirebaseEmojiInfo();
     super.initState();
+  }
+
+  void getFirebaseEmojiInfo() async {
+    await emojiOperations.getFirebaseEmoji("songs", "1");
   }
 
   @override
@@ -174,4 +177,6 @@ class _SongPageState extends State<SongPage> {
       ),
     );
   }
+
+
 }

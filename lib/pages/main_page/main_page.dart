@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emoji_bulmaca/pages/song_page.dart';
 import 'package:emoji_bulmaca/utils/constants.dart';
-import 'package:emoji_bulmaca/utils/emoji_operations.dart';
+import 'package:emoji_bulmaca/widgets/emoji_operations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> {
 
   late EmojiOperations emojiOperations;
 
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _MainPageState extends State<MainPage> {
       return prefs.getInt('songs') ?? 1;
     });
 
-    firebaseTest();
+    
     super.initState();
   }
 
@@ -116,20 +116,5 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  void firebaseTest() async {
-    CollectionReference users = FirebaseFirestore.instance.collection('test');
 
-    var user = await users
-        .doc("BuGeW9CcVT8Rv5G9bLYR")
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        Map<String, dynamic> data =
-            documentSnapshot.data() as Map<String, dynamic>;
-        debugPrint("Test data:  " + data["test"]);
-      } else {
-        debugPrint("Not exists");
-      }
-    });
-  }
 }
