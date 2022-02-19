@@ -14,23 +14,6 @@ class EmojiOperations {
     );
   }
 
-  Widget newFutureBuilderText(Future<int> songsCount) {
-    return FutureBuilder<int>(
-      future: songsCount,
-      builder: (context, AsyncSnapshot snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        } else {
-          //
-          return Text(
-            snapshot.data.toString(),
-            style: constants.returnTextStyle(constants.MAIN_TITLE_NO_2),
-          );
-        }
-      },
-    );
-  }
-
   Widget futureGetNextImg(String path, Future<int> songsCount) {
     return FutureBuilder<int>(
       future: songsCount,
@@ -48,15 +31,35 @@ class EmojiOperations {
     );
   }
 
+  Widget newFutureBuilderText(Future<int> songsCount) {
+    return FutureBuilder<int>(
+      future: songsCount,
+      builder: (context, AsyncSnapshot snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          //
+          return Text(
+            snapshot.data.toString(),
+            style: constants.returnTextStyle(constants.MAIN_TITLE_NO_2),
+          );
+        }
+      },
+    );
+  }
+
+  //Firebase
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<EmojiModel> getFirebaseEmoji(String collection, String id) async {
-    CollectionReference users = FirebaseFirestore.instance.collection(collection);
+  Future<EmojiModel> getFirebaseEmojiInfo(String collection, Future<int> id) async {
+    CollectionReference users =
+        FirebaseFirestore.instance.collection(collection);
     EmojiModel emojiModel;
+    int idInt = await id;
 
     try {
       var user = await users
-          .where("id", isEqualTo: id)
+          .where("id", isEqualTo: idInt.toString())
           .get()
           .then((QuerySnapshot<Object?> documentSnapshot) {
         if (documentSnapshot.docs.isNotEmpty) {
@@ -79,43 +82,29 @@ class EmojiOperations {
     }
   }
 
-  void test() async {
-    CollectionReference users = FirebaseFirestore.instance.collection('emojis');
-    var user = await users
-        .where("id", isEqualTo: "1")
-        //.doc("BuGeW9CcVT8Rv5G9bLYR")
-        .get()
-        .then((QuerySnapshot<Object?> documentSnapshot) {
-      if (documentSnapshot.docs.isNotEmpty) {
-        List<Object?> data = documentSnapshot.docs.map((DocumentSnapshot e) {
-          return e.data();
-        }).toList();
-
-        /*
-            documentSnapshot.docs as List<Map<String, dynamic>>;
-            */
-        Map<String, dynamic> value = data[0] as Map<String, dynamic>;
-
-        debugPrint("Test data:  " + value["url"]);
-      } else {
-        debugPrint("Not exists");
-      }
-    });
-
-    /*
-    var user = await users
-        //.where("id", isEqualTo: "1")
-        .doc("BuGeW9CcVT8Rv5G9bLYR")
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        Map<String, dynamic> data =
-            documentSnapshot.data() as Map<String, dynamic>;
-        debugPrint("Test data:  " + data["test"]);
-      } else {
-        debugPrint("Not exists");
-      }
-    });
-    */
+  Widget getEmojiPhoto(String collection, Future<int> id, MediaQueryData queryData) {
+    return FutureBuilder(
+        future: getFirebaseEmojiInfo(collection, id),
+        builder: (context, AsyncSnapshot<EmojiModel> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            if (snapshot.data != null) {
+              return Container(
+                height: queryData.size.height / 2.5,
+                margin: const EdgeInsets.all(10),
+                child: Center(
+                  //Current emoji photo & change
+                  child: Image.network(
+                    snapshot.data!.url,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }
+        });
   }
 }
