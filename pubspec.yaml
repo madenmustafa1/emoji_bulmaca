@@ -22,6 +22,7 @@ dependencies:
   firebase_storage: ^10.2.7
   image_picker: ^0.8.4+7
   firebase_core: ^1.4.0
+  motion_toast: ^2.1.1
 
 
 dev_dependencies:

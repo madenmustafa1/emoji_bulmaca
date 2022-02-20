@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:emoji_bulmaca/pages/song_page.dart';
+import 'package:emoji_bulmaca/model/emoji_list_model.dart';
+import 'package:emoji_bulmaca/pages/main_page/emoji_list.dart';
 import 'package:emoji_bulmaca/utils/constants.dart';
-import 'package:emoji_bulmaca/widgets/emoji_operations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,19 +22,14 @@ class _MainPageState extends State<MainPage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<int> songsCount;
 
-  late EmojiOperations emojiOperations;
-
-
+  late EmojiList emojiList;
 
   @override
   void initState() {
-    emojiOperations = EmojiOperations();
-
     songsCount = _prefs.then((SharedPreferences prefs) {
       return prefs.getInt('songs') ?? 1;
     });
 
-    
     super.initState();
   }
 
@@ -44,6 +38,8 @@ class _MainPageState extends State<MainPage> {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
     Constants constants = Constants();
+
+    emojiList = EmojiList(context);
 
     return Scaffold(
       body: Column(
@@ -71,19 +67,21 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           Expanded(
-              child: FutureBuilder<int>(
-            future: songsCount,
-            builder: (context, AsyncSnapshot snapshot) {
+              child: FutureBuilder<List<EmojiListModel>>(
+            future: emojiList.getEmojiList(),
+            builder: (context, AsyncSnapshot<List<EmojiListModel>> snapshot) {
               if (!snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               } else {
+
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(8),
-                  itemCount: entries.length,
+                  itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return listViewItem(index, snapshot.data);
+                    EmojiListModel emojiListModel = snapshot.data![index];
+                    return emojiList.listViewItem(emojiListModel.coverUrl, queryData, emojiListModel.totalCount);
                   },
                 );
               }
@@ -93,28 +91,4 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-
-  Widget listViewItem(int index, int songsCount) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Hero(
-        tag: "emoji${index + 1}",
-        child: Material(
-          type: MaterialType.transparency,
-          child: InkWell(
-              onTap: () => Navigator.of(context).push(CupertinoPageRoute(
-                    builder: (context) => SongPage(
-                      heroTag: "emoji${index + 1}",
-                    ),
-                  )),
-              child: emojiOperations.getNextImg(
-                "songs",
-                index + 1,
-              )),
-        ),
-      ),
-    );
-  }
-
-
 }

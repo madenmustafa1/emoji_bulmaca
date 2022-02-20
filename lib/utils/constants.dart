@@ -34,3 +34,9 @@ class HexColor extends Color {
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
+
+class CText {
+  static String TOAST_TITLE = "Başardın!";
+  static String TOAST_INFO =
+      "Tebrikler bölümü tamamladın. Hadi diğer bölümlere geçelim.";
+}

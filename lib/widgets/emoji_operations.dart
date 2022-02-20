@@ -69,7 +69,7 @@ class EmojiOperations {
           Map<String, dynamic> value = data[0] as Map<String, dynamic>;
 
           emojiModel = EmojiModel.fromMap(value);
-          debugPrint("Emoji model:  " + emojiModel.url);
+
           return emojiModel;
         } else {
           return const EmojiModel("", "", "");

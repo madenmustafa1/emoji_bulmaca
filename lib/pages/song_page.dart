@@ -1,21 +1,22 @@
+import 'dart:async';
 import 'package:emoji_bulmaca/model/emoji_model.dart';
 import 'package:emoji_bulmaca/utils/constants.dart';
+import 'package:emoji_bulmaca/utils/toast.dart';
 import 'package:emoji_bulmaca/widgets/emoji_operations.dart';
 import 'package:emoji_bulmaca/widgets/constants_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SongPage extends StatefulWidget {
-  final String heroTag;
-  const SongPage({Key? key, this.heroTag = ""}) : super(key: key);
+  final int totalCount;
+
+  const SongPage({Key? key, this.totalCount = 0}) : super(key: key);
 
   @override
   _SongPageState createState() => _SongPageState();
 }
 
 class _SongPageState extends State<SongPage> {
-  //TextEditingController _controller = new TextEditingController();
-
   int imageCount = 1;
   late Future<int> songsCount;
   late Future<EmojiModel> emojiModel;
@@ -23,10 +24,13 @@ class _SongPageState extends State<SongPage> {
   late Constants constants;
   late EmojiOperations emojiOperations;
   late ConstantsWidgets constantsWidgets;
+  late Toast showToast;
 
   late TextEditingController emojiTextController = TextEditingController();
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+
 
   Future<void> _incrementImageCount(int imageCount2) async {
     final SharedPreferences prefs = await _prefs;
@@ -54,6 +58,7 @@ class _SongPageState extends State<SongPage> {
   Widget build(BuildContext context) {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
+    showToast = Toast(context);
 
     songsCount = _prefs.then((SharedPreferences prefs) {
       return prefs.getInt('songs') ?? 1;
@@ -62,7 +67,7 @@ class _SongPageState extends State<SongPage> {
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false, // set it to false
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -90,11 +95,8 @@ class _SongPageState extends State<SongPage> {
             //Emoji Image
             Container(
               height: queryData.size.height / 2.5,
-              child: Hero(
-                tag: widget.heroTag,
-                child: emojiOperations.getEmojiPhoto(
-                    "songs", songsCount, queryData),
-              ),
+              child:
+                  emojiOperations.getEmojiPhoto("songs", songsCount, queryData),
             ),
             const SizedBox(
               height: 10,
@@ -160,22 +162,27 @@ class _SongPageState extends State<SongPage> {
     );
   }
 
-  
   void inputControl() async {
-    EmojiModel forEmojiName = await getFirebaseEmojiInfo();
-
-    int count = await songsCount;
     int imageCount2 = await songsCount;
+    if (widget.totalCount > imageCount2) {
+      EmojiModel forEmojiName = await getFirebaseEmojiInfo();
 
-    if (emojiTextController.text == forEmojiName.name) {
-      setState(() {
-        emojiTextController.text = "";
-        imageCount = imageCount2 + 1;
-        emojiModel = getFirebaseEmojiInfo();
-        _incrementImageCount(count + 1);
-      });
+      int count = await songsCount;
+
+      if (emojiTextController.text == forEmojiName.name) {
+        setState(() {
+          emojiTextController.text = "";
+          imageCount = imageCount2 + 1;
+          emojiModel = getFirebaseEmojiInfo();
+          _incrementImageCount(count + 1);
+        });
+      }
+    } else {
+      showToast.showToast();
     }
   }
+
+
 }
 
 
@@ -203,3 +210,18 @@ class _SongPageState extends State<SongPage> {
   }
 
   */
+
+        /*
+      MotionToast.success(
+        iconType: null,
+        iconSize: 0,
+        title: const Text(
+          "Success Motion Toast",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        description: const Text("Example of success motion toast",
+            style: TextStyle(fontSize: 12)),
+        width: 300,
+        position: MOTION_TOAST_POSITION.center,
+      ).show(context);
+     */
