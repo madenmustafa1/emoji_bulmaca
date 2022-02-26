@@ -1,7 +1,6 @@
 import 'package:emoji_bulmaca/model/emoji_list_model.dart';
 import 'package:emoji_bulmaca/pages/main_page/emoji_list.dart';
 import 'package:emoji_bulmaca/utils/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

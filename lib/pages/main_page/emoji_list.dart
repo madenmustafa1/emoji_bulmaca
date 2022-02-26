@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emoji_bulmaca/model/emoji_list_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../song_page.dart';
+import '../song_page/song_page.dart';
 
 class EmojiList {
   BuildContext context;

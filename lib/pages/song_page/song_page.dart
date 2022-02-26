@@ -2,9 +2,11 @@ import 'dart:async';
 import 'package:emoji_bulmaca/model/emoji_model.dart';
 import 'package:emoji_bulmaca/utils/constants.dart';
 import 'package:emoji_bulmaca/utils/toast.dart';
+import 'package:emoji_bulmaca/widgets/count_widget.dart';
 import 'package:emoji_bulmaca/widgets/emoji_operations.dart';
 import 'package:emoji_bulmaca/widgets/constants_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SongPage extends StatefulWidget {
@@ -30,8 +32,6 @@ class _SongPageState extends State<SongPage> {
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-
-
   Future<void> _incrementImageCount(int imageCount2) async {
     final SharedPreferences prefs = await _prefs;
     prefs.setInt('songs', imageCount2).then((bool success) {});
@@ -47,10 +47,14 @@ class _SongPageState extends State<SongPage> {
     super.initState();
   }
 
+  late final Ref ref;
+
   Future<EmojiModel> getFirebaseEmojiInfo() async {
     songsCount = _prefs.then((SharedPreferences prefs) {
       return prefs.getInt('songs') ?? 1;
     });
+    int count = await songsCount;
+
     return await emojiOperations.getFirebaseEmojiInfo("songs", songsCount);
   }
 
@@ -77,21 +81,7 @@ class _SongPageState extends State<SongPage> {
         child: Column(
           children: [
             //Scor
-            Row(
-              children: [
-                constantsWidgets.getSizedBox(context, 32),
-                //Scor icon
-                constantsWidgets.getIcon(Icons.star),
-                //Scor count
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: emojiOperations.newFutureBuilderText(
-                    songsCount,
-                  ),
-                )
-              ],
-            ),
-
+            CountWidget(),
             //Emoji Image
             Container(
               height: queryData.size.height / 2.5,
@@ -181,35 +171,12 @@ class _SongPageState extends State<SongPage> {
       showToast.showToast();
     }
   }
-
-
 }
 
 
 
 
 
-
-
-
-
-
-/*
-  Container getNextImg(MediaQueryData queryData) {
-    return Container(
-      height: queryData.size.height / 2.5,
-      margin: const EdgeInsets.all(10),
-      child: Center(
-        //Current emoji photo & change
-        child: emojiOperations.futureGetNextImg(
-          "songs",
-          songsCount,
-        ),
-      ),
-    );
-  }
-
-  */
 
         /*
       MotionToast.success(

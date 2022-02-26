@@ -48,10 +48,18 @@ class EmojiOperations {
     );
   }
 
+  Widget newFutureBuilderText2(int songsCount) {
+    return Text(
+      songsCount.toString(),
+      style: constants.returnTextStyle(constants.MAIN_TITLE_NO_2),
+    );
+  }
+
   //Firebase
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<EmojiModel> getFirebaseEmojiInfo(String collection, Future<int> id) async {
+  Future<EmojiModel> getFirebaseEmojiInfo(
+      String collection, Future<int> id) async {
     CollectionReference users =
         FirebaseFirestore.instance.collection(collection);
     EmojiModel emojiModel;
@@ -82,7 +90,8 @@ class EmojiOperations {
     }
   }
 
-  Widget getEmojiPhoto(String collection, Future<int> id, MediaQueryData queryData) {
+  Widget getEmojiPhoto(
+      String collection, Future<int> id, MediaQueryData queryData) {
     return FutureBuilder(
         future: getFirebaseEmojiInfo(collection, id),
         builder: (context, AsyncSnapshot<EmojiModel> snapshot) {
