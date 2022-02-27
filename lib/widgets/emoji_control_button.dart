@@ -1,12 +1,29 @@
+import 'package:emoji_bulmaca/model/emoji_model.dart';
+import 'package:emoji_bulmaca/model/input_text_model.dart';
+import 'package:emoji_bulmaca/pages/song_page/song_page_provider.dart';
+import 'package:emoji_bulmaca/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../pages/song_page/song_page_vm.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model/score_model.dart';
+import '../utils/toast.dart';
+import 'emoji_operations.dart';
 
 class EmojiControlButton extends ConsumerWidget {
-  const EmojiControlButton({Key? key}) : super(key: key);
+  final int totalCount;
+  EmojiControlButton({Key? key, required this.totalCount}) : super(key: key);
+
+  Constants constants = Constants();
+  EmojiOperations emojiOperations = EmojiOperations();
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  late Toast showToast;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    showToast = Toast(context);
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
 
     return Padding(
@@ -20,18 +37,34 @@ class EmojiControlButton extends ConsumerWidget {
             child: ElevatedButton(
               //Input control->
               onPressed: () {
-                ref
-                    .read(scoreNotifierProvider.notifier)
-                    .increaseTheScore(scoreI: 100);
+                inputControl(ref);
               },
               child: const Icon(Icons.send),
-              // style: ElevatedButton.styleFrom(    primary: constants.BUTTON_COLOR),
+              style: ElevatedButton.styleFrom(primary: constants.BUTTON_COLOR),
             ),
           ),
         ),
       ),
     );
   }
+
+  void inputControl(WidgetRef ref) async {
+    ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
+    TextModel textProvider = ref.watch(emojiInputTextNotifierProvider);
+
+    if (totalCount > scoreProvider.score) {
+      EmojiModel forEmojiName = await emojiOperations.getFirebaseEmojiInfo(
+          "emojiKey", scoreProvider.score);
+
+      if (textProvider.text == forEmojiName.name) {
+        ref.read(emojiInputTextNotifierProvider.notifier).setText();
+        ref.read(scoreNotifierProvider.notifier).increaseTheScore();
+
+        EmojiModel forEmojiName = await emojiOperations.getFirebaseEmojiInfo(
+            "emojiKey", scoreProvider.score);
+      }
+    } else {
+      showToast.showToast();
+    }
+  }
 }
-
-

@@ -14,7 +14,7 @@ void main() async {
     statusBarColor: Colors.transparent,
   ));
 
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

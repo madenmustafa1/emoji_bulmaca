@@ -14,8 +14,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   List<String> data = [];
 
-  final List<String> entries = <String>['Sarkı', 'Atasözü', 'Kelime'];
-
   final List<int> colorCodes = <int>[600, 500, 100];
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -37,7 +35,6 @@ class _MainPageState extends State<MainPage> {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
     Constants constants = Constants();
-
     emojiList = EmojiList(context);
 
     return Scaffold(
@@ -72,7 +69,6 @@ class _MainPageState extends State<MainPage> {
               if (!snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
@@ -80,7 +76,12 @@ class _MainPageState extends State<MainPage> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index) {
                     EmojiListModel emojiListModel = snapshot.data![index];
-                    return emojiList.listViewItem(emojiListModel.coverUrl, queryData, emojiListModel.totalCount);
+                    return emojiList.listViewItem(
+                      emojiListModel.coverUrl,
+                      queryData,
+                      emojiListModel.totalCount,
+                      emojiListModel.name,
+                    );
                   },
                 );
               }

@@ -1,8 +1,17 @@
 import 'package:emoji_bulmaca/model/score_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScoreManager extends StateNotifier<ScoreModel> {
-  ScoreManager() : super(ScoreModel(0));
+  ScoreManager() : super(ScoreModel(1));
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  void getScoreCount(String key) async {
+    state = await _prefs.then((SharedPreferences prefs) {
+      return ScoreModel(prefs.getInt(key) ?? 1);
+    });
+  }
 
   void increaseTheScore({int scoreI = 1}) {
     int score = state.score;

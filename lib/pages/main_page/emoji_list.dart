@@ -10,14 +10,14 @@ class EmojiList {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Widget listViewItem(String url, MediaQueryData queryData, int totalCount) {
+  Widget listViewItem(String url, MediaQueryData queryData, int totalCount, String emojiKey) {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
           onTap: () => Navigator.of(context).push(CupertinoPageRoute(
-            builder: (context) => SongPage(totalCount: totalCount),
+            builder: (context) => SongPage(totalCount: totalCount, emojiKey: emojiKey,),
           )),
           child: Container(
             height: queryData.size.height / 2.5,

@@ -1,6 +1,5 @@
-
 import 'package:emoji_bulmaca/model/score_model.dart';
-import 'package:emoji_bulmaca/pages/song_page/song_page_vm.dart';
+import 'package:emoji_bulmaca/pages/song_page/song_page_provider.dart';
 import 'package:emoji_bulmaca/widgets/constants_widgets.dart';
 import 'package:emoji_bulmaca/widgets/emoji_operations.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,8 @@ class CountWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
+    ref.read(scoreNotifierProvider.notifier).getScoreCount;
+
     return Row(
       children: [
         constantsWidgets.getSizedBox(context, 32),
@@ -23,7 +24,7 @@ class CountWidget extends ConsumerWidget {
         //Scor count
         Align(
           alignment: Alignment.centerLeft,
-          child: emojiOperations.newFutureBuilderText2(
+          child: emojiOperations.newFutureBuilderText(
             scoreProvider.score,
           ),
         )
@@ -31,5 +32,3 @@ class CountWidget extends ConsumerWidget {
     );
   }
 }
-
-

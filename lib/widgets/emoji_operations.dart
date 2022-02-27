@@ -6,14 +6,15 @@ import '../utils/constants.dart';
 
 class EmojiOperations {
   Constants constants = Constants();
-
+  /*
   Image getNextImg(String path, int index) {
     return Image.asset(
       'assets/img/$path/${index.toString()}.png',
       fit: BoxFit.cover,
     );
   }
-
+  */
+  /*
   Widget futureGetNextImg(String path, Future<int> songsCount) {
     return FutureBuilder<int>(
       future: songsCount,
@@ -30,7 +31,8 @@ class EmojiOperations {
       },
     );
   }
-
+  */
+  /*
   Widget newFutureBuilderText(Future<int> songsCount) {
     return FutureBuilder<int>(
       future: songsCount,
@@ -47,8 +49,9 @@ class EmojiOperations {
       },
     );
   }
+  */
 
-  Widget newFutureBuilderText2(int songsCount) {
+  Widget newFutureBuilderText(int songsCount) {
     return Text(
       songsCount.toString(),
       style: constants.returnTextStyle(constants.MAIN_TITLE_NO_2),
@@ -58,12 +61,11 @@ class EmojiOperations {
   //Firebase
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<EmojiModel> getFirebaseEmojiInfo(
-      String collection, Future<int> id) async {
+  Future<EmojiModel> getFirebaseEmojiInfo(String collection, int id) async {
     CollectionReference users =
         FirebaseFirestore.instance.collection(collection);
     EmojiModel emojiModel;
-    int idInt = await id;
+    int idInt = id;
 
     try {
       var user = await users
@@ -83,15 +85,13 @@ class EmojiOperations {
           return const EmojiModel("", "", "");
         }
       });
-
       return user;
     } catch (e) {
       return const EmojiModel("", "", "");
     }
   }
 
-  Widget getEmojiPhoto(
-      String collection, Future<int> id, MediaQueryData queryData) {
+  Widget getEmojiPhoto(String collection, int id, MediaQueryData queryData) {
     return FutureBuilder(
         future: getFirebaseEmojiInfo(collection, id),
         builder: (context, AsyncSnapshot<EmojiModel> snapshot) {
