@@ -5,10 +5,14 @@ class InputTextManager extends StateNotifier<TextModel> {
   InputTextManager() : super(TextModel(""));
 
   void text({required String value}) {
-    state = TextModel(state.text);
+    state = TextModel(value);
   }
 
   void setText() {
     state = TextModel("");
+  }
+
+  String getText() {
+    return state.text;
   }
 }

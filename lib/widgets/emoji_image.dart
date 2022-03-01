@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/score_model.dart';
-import '../pages/song_page/song_page_provider.dart';
+import '../providers/song_page_provider.dart';
 
 class EmojiImage extends ConsumerWidget {
   final String emojiKey;
@@ -17,6 +17,7 @@ class EmojiImage extends ConsumerWidget {
     queryData = MediaQuery.of(context);
 
     ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
+    ref.read(emojiKeyNotifierProvider.notifier).setKey(emojiKey);
 
     return SizedBox(
       height: queryData.size.height / 2.5,

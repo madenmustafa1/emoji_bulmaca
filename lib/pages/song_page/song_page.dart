@@ -68,7 +68,7 @@ class _SongPageState extends State<SongPage> {
         child: Column(
           children: [
             //Scor
-            CountWidget(),
+            CountWidget(totalCount: widget.totalCount),
             //Emoji Image
             EmojiImage(emojiKey: widget.emojiKey),
             //

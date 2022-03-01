@@ -21,11 +21,14 @@ class _MainPageState extends State<MainPage> {
 
   late EmojiList emojiList;
 
+  
+
   @override
   void initState() {
     songsCount = _prefs.then((SharedPreferences prefs) {
       return prefs.getInt('songs') ?? 1;
     });
+
 
     super.initState();
   }

@@ -1,6 +1,6 @@
 import 'package:emoji_bulmaca/model/emoji_model.dart';
 import 'package:emoji_bulmaca/model/input_text_model.dart';
-import 'package:emoji_bulmaca/pages/song_page/song_page_provider.dart';
+import 'package:emoji_bulmaca/providers/song_page_provider.dart';
 import 'package:emoji_bulmaca/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -51,17 +51,17 @@ class EmojiControlButton extends ConsumerWidget {
   void inputControl(WidgetRef ref) async {
     ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
     TextModel textProvider = ref.watch(emojiInputTextNotifierProvider);
+    String emojiKey = ref.read(emojiKeyNotifierProvider.notifier).getKey();
 
     if (totalCount > scoreProvider.score) {
       EmojiModel forEmojiName = await emojiOperations.getFirebaseEmojiInfo(
-          "emojiKey", scoreProvider.score);
+          emojiKey, scoreProvider.score);
 
       if (textProvider.text == forEmojiName.name) {
-        ref.read(emojiInputTextNotifierProvider.notifier).setText();
-        ref.read(scoreNotifierProvider.notifier).increaseTheScore();
-
-        EmojiModel forEmojiName = await emojiOperations.getFirebaseEmojiInfo(
-            "emojiKey", scoreProvider.score);
+        ref.read(emojiInputTextNotifierProvider.notifier).text(value: "");
+        ref
+            .read(scoreNotifierProvider.notifier)
+            .increaseTheScore(key: emojiKey);
       }
     } else {
       showToast.showToast();

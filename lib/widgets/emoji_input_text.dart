@@ -1,12 +1,16 @@
-import 'package:emoji_bulmaca/model/input_text_model.dart';
-import 'package:emoji_bulmaca/pages/song_page/song_page_provider.dart';
+import 'dart:async';
+
+import 'package:emoji_bulmaca/providers/song_page_provider.dart';
 import 'package:emoji_bulmaca/widgets/emoji_control_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../model/score_model.dart';
+import '../utils/toast.dart';
+
 class EmojiInputText extends ConsumerStatefulWidget {
   final int totalCount;
-  EmojiInputText({Key? key, required this.totalCount}) : super(key: key);
+  const EmojiInputText({Key? key, required this.totalCount}) : super(key: key);
 
   @override
   _EmojiInputTextState createState() => _EmojiInputTextState();
@@ -15,16 +19,34 @@ class EmojiInputText extends ConsumerStatefulWidget {
 class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
   TextEditingController emojiTextController = TextEditingController();
 
+  Timer scheduleTimeout([int milliseconds = 1000]) =>
+      Timer(Duration(milliseconds: milliseconds), handleTimeout);
+
+  void handleTimeout() {
+    ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
+
+    if (scoreProvider.score <= widget.totalCount) {
+      Toast showToast = Toast(context);
+      showToast.showToast();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    scheduleTimeout();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scheduleTimeout().cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
-    TextModel textProvider = ref.watch(emojiInputTextNotifierProvider);
-
-    if (textProvider.text != "") {
-      // Or check if appState.username != null or what ever your use case is.
-      emojiTextController.text = textProvider.text ?? '';
-    }
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
