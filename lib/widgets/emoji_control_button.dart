@@ -4,8 +4,6 @@ import 'package:emoji_bulmaca/providers/song_page_provider.dart';
 import 'package:emoji_bulmaca/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../model/score_model.dart';
 import '../utils/toast.dart';
 import 'emoji_operations.dart';
@@ -16,8 +14,6 @@ class EmojiControlButton extends ConsumerWidget {
 
   Constants constants = Constants();
   EmojiOperations emojiOperations = EmojiOperations();
-
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   late Toast showToast;
 

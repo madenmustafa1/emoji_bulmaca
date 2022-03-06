@@ -1,8 +1,10 @@
-import 'package:emoji_bulmaca/model/emoji_list_model.dart';
 import 'package:emoji_bulmaca/pages/main_page/emoji_list.dart';
 import 'package:emoji_bulmaca/utils/constants.dart';
+import 'package:emoji_bulmaca/widgets/emoji_happy.dart';
+import 'package:emoji_bulmaca/widgets/main_page_title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../widgets/category_list_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -12,23 +14,16 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<String> data = [];
-
-  final List<int> colorCodes = <int>[600, 500, 100];
-
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<int> songsCount;
 
   late EmojiList emojiList;
-
-  
 
   @override
   void initState() {
     songsCount = _prefs.then((SharedPreferences prefs) {
       return prefs.getInt('songs') ?? 1;
     });
-
 
     super.initState();
   }
@@ -41,57 +36,27 @@ class _MainPageState extends State<MainPage> {
     emojiList = EmojiList(context);
 
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).padding.top + 50,
+        body: Stack(
+      children: [
+        SizedBox(
+          height: queryData.size.height,
+          width: queryData.size.width,
+          child: Image.asset(
+            'assets/bg/bg.jpg',
+            fit: BoxFit.fill,
           ),
-          Center(
-            child: Column(
-              children: [
-                Text(
-                  "Emoji bulmaca",
-                  style: constants.returnTextStyle(constants.MAIN_TITLE_NO_1),
-                ),
-                SizedBox(
-                  height: queryData.size.height / 60,
-                ),
-                const Text(
-                  "Kategoriler",
-                  style: TextStyle(
-                    fontSize: 12,
-                  ),
-                )
-              ],
+        ),
+        EmojiHappyAndSad(queryData: queryData),
+        Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).padding.top + 50,
             ),
-          ),
-          Expanded(
-              child: FutureBuilder<List<EmojiListModel>>(
-            future: emojiList.getEmojiList(),
-            builder: (context, AsyncSnapshot<List<EmojiListModel>> snapshot) {
-              if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(8),
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    EmojiListModel emojiListModel = snapshot.data![index];
-                    return emojiList.listViewItem(
-                      emojiListModel.coverUrl,
-                      queryData,
-                      emojiListModel.totalCount,
-                      emojiListModel.name,
-                    );
-                  },
-                );
-              }
-            },
-          ))
-        ],
-      ),
-    );
+            MainTitleWidget(constants: constants, queryData: queryData),
+            CategoryListWidget(emojiList: emojiList, queryData: queryData)
+          ],
+        ),
+      ],
+    ));
   }
 }

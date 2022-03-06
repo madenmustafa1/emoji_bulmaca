@@ -20,13 +20,14 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  //#FFDFD3
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Emoji bulmaca',
       theme: ThemeData(
-        scaffoldBackgroundColor: HexColor("#A096E0"),
+        //scaffoldBackgroundColor: HexColor("#D6CFFC"),
         primarySwatch: Colors.blue,
         backgroundColor: Colors.black,
       ),

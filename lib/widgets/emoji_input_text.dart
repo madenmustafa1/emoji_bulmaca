@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:emoji_bulmaca/providers/song_page_provider.dart';
 import 'package:emoji_bulmaca/widgets/emoji_control_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../model/score_model.dart';
 import '../utils/toast.dart';
 
@@ -24,8 +22,7 @@ class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
 
   void handleTimeout() {
     ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
-
-    if (scoreProvider.score <= widget.totalCount) {
+    if (scoreProvider.score >= widget.totalCount) {
       Toast showToast = Toast(context);
       showToast.showToast();
     }
@@ -68,7 +65,7 @@ class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
                   border: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.teal)),
                   hintText: 'Tahminin nedir?',
-                  helperText: 'Tahminin nedir?',
+                  //helperText: 'Tahminin nedir?',
                   labelText: 'Şarkıyı bul',
                   prefixIcon: Icon(
                     Icons.person,
