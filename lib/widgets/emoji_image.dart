@@ -18,7 +18,7 @@ class EmojiImage extends ConsumerWidget {
 
     ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
     ref.read(emojiKeyNotifierProvider.notifier).setKey(emojiKey);
-
+ 
     return SizedBox(
       height: queryData.size.height / 2.8,
       child: emojiOperations.getEmojiPhoto(
