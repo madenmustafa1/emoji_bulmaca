@@ -17,7 +17,7 @@ class MainTitleWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            "Emoji bulmaca",
+            "Emoji Bulmaca",
             style: constants.returnTextStyle(constants.MAIN_TITLE_NO_1),
           ),
           SizedBox(
