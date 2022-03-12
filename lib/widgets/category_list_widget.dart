@@ -4,17 +4,16 @@ import '../model/emoji_list_model.dart';
 import '../pages/main_page/emoji_list.dart';
 
 class CategoryListWidget extends StatelessWidget {
-  const CategoryListWidget({
-    Key? key,
-    required this.emojiList,
-    required this.queryData,
-  }) : super(key: key);
+  CategoryListWidget({Key? key}) : super(key: key);
 
-  final EmojiList emojiList;
-  final MediaQueryData queryData;
+  late EmojiList emojiList;
+  late MediaQueryData queryData;
 
   @override
   Widget build(BuildContext context) {
+    emojiList = EmojiList(context);
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Expanded(
         child: FutureBuilder<List<EmojiListModel>>(
       future: emojiList.getEmojiList(),
@@ -42,4 +41,3 @@ class CategoryListWidget extends StatelessWidget {
     ));
   }
 }
-

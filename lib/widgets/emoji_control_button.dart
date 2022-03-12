@@ -1,11 +1,11 @@
-import 'package:emoji_bulmaca/model/emoji_model.dart';
-import 'package:emoji_bulmaca/model/input_text_model.dart';
-import 'package:emoji_bulmaca/providers/song_page_provider.dart';
-import 'package:emoji_bulmaca/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/score_model.dart';
 import '../utils/toast.dart';
+import '../model/emoji_model.dart';
+import '../model/input_text_model.dart';
+import '../providers/song_page_provider.dart';
+import '../utils/constants.dart';
 import 'emoji_operations.dart';
 
 class EmojiControlButton extends ConsumerWidget {
@@ -14,7 +14,6 @@ class EmojiControlButton extends ConsumerWidget {
 
   Constants constants = Constants();
   EmojiOperations emojiOperations = EmojiOperations();
-
   late Toast showToast;
 
   @override
@@ -23,7 +22,7 @@ class EmojiControlButton extends ConsumerWidget {
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 22),
+      padding: returnPadding(context),
       child: Padding(
         padding: EdgeInsets.only(bottom: bottomPadding),
         child: SizedBox(
@@ -62,5 +61,9 @@ class EmojiControlButton extends ConsumerWidget {
     } else {
       showToast.showToast();
     }
+  }
+
+  EdgeInsetsGeometry returnPadding(BuildContext context) {
+    return EdgeInsets.only(bottom: (MediaQuery.of(context).size.height / 250));
   }
 }

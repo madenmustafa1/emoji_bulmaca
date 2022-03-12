@@ -1,7 +1,6 @@
 import 'package:emoji_bulmaca/widgets/emoji_operations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../model/score_model.dart';
 import '../providers/song_page_provider.dart';
 

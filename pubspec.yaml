@@ -1,5 +1,5 @@
 name: emoji_bulmaca
-description: A new Flutter project.
+description: Emojilerle sarki bulmaca.
 
 publish_to: "none"
 
@@ -23,7 +23,6 @@ dependencies:
   cloud_firestore: ^3.1.10
   firebase_storage: ^10.2.8
   lottie: ^1.2.2
-
 
 dev_dependencies:
   flutter_test:

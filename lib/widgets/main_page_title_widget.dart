@@ -3,17 +3,16 @@ import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 
 class MainTitleWidget extends StatelessWidget {
-  const MainTitleWidget({
+  MainTitleWidget({
     Key? key,
-    required this.constants,
-    required this.queryData,
   }) : super(key: key);
 
-  final Constants constants;
-  final MediaQueryData queryData;
+  late MediaQueryData queryData;
+  Constants constants = Constants();
 
   @override
   Widget build(BuildContext context) {
+    queryData = MediaQuery.of(context);
     return Center(
       child: Column(
         children: [

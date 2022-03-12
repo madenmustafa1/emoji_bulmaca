@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'package:emoji_bulmaca/providers/song_page_provider.dart';
-import 'package:emoji_bulmaca/widgets/emoji_control_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/score_model.dart';
+import '../utils/constants.dart';
 import '../utils/toast.dart';
+import '../providers/song_page_provider.dart';
+import '../widgets/emoji_control_button.dart';
 
 class EmojiInputText extends ConsumerStatefulWidget {
   final int totalCount;
@@ -16,6 +17,8 @@ class EmojiInputText extends ConsumerStatefulWidget {
 
 class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
   TextEditingController emojiTextController = TextEditingController();
+
+  Constants constants = Constants();
 
   Timer scheduleTimeout([int milliseconds = 1000]) =>
       Timer(Duration(milliseconds: milliseconds), handleTimeout);
@@ -31,7 +34,6 @@ class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
   @override
   void initState() {
     super.initState();
-
     scheduleTimeout();
   }
 
@@ -61,17 +63,12 @@ class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
                       .text(value: value);
                 },
                 controller: emojiTextController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.teal)),
+                      borderSide: BorderSide(color: constants.BUTTON_COLOR)),
                   hintText: 'Tahminin nedir?',
-                  //helperText: 'Tahminin nedir?',
                   labelText: 'Şarkıyı bul',
-                  prefixIcon: Icon(
-                    Icons.person,
-                    color: Colors.green,
-                  ),
-                  suffixStyle: TextStyle(color: Colors.green),
+                  suffixStyle: TextStyle(color: constants.BUTTON_COLOR),
                 ),
               ),
             ),
