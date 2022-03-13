@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/score_model.dart';
+import '../utils/play_sound.dart';
 import '../utils/toast.dart';
 import '../model/emoji_model.dart';
 import '../model/input_text_model.dart';
@@ -59,6 +60,9 @@ class EmojiControlButton extends ConsumerWidget {
             .increaseTheScore(key: emojiKey);
 
         ref.read(inputClearNotifierProvider.notifier).clearInput();
+        PlaySound.playTrueAudio();
+      } else {
+        if (textProvider.text.trim() != "") PlaySound.playWrongAudio();
       }
     } else {
       showToast.showToast();

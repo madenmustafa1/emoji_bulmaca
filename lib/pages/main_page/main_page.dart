@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../pages/main_page/emoji_list.dart';
+import '../../utils/play_sound.dart';
 import '../../widgets/emoji_happy.dart';
 import '../../widgets/main_page_title_widget.dart';
 import '../../widgets/category_list_widget.dart';
@@ -11,10 +12,14 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-
 class _MainPageState extends State<MainPage> {
   late EmojiList emojiList;
-  
+
+  @override
+  void initState() {
+    super.initState();
+    PlaySound.playTutorial();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,7 @@ class _MainPageState extends State<MainPage> {
                     MediaQuery.of(context).padding.top / 1.2,
               ),
               MainTitleWidget(),
-              CategoryListWidget()
+              CategoryListWidget(),
             ],
           ),
         ],
