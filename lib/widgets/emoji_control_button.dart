@@ -52,11 +52,13 @@ class EmojiControlButton extends ConsumerWidget {
       EmojiModel forEmojiName = await emojiOperations.getFirebaseEmojiInfo(
           emojiKey, scoreProvider.score);
 
-      if (textProvider.text == forEmojiName.name) {
+      if (textProvider.text.replaceAll(' ', '') == forEmojiName.name) {
         ref.read(emojiInputTextNotifierProvider.notifier).text(value: "");
         ref
             .read(scoreNotifierProvider.notifier)
             .increaseTheScore(key: emojiKey);
+
+        ref.read(inputClearNotifierProvider.notifier).clearInput();
       }
     } else {
       showToast.showToast();

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../model/input_text_clear_model.dart';
 import '../model/score_model.dart';
 import '../utils/constants.dart';
 import '../utils/toast.dart';
@@ -25,7 +26,7 @@ class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
 
   void handleTimeout() {
     ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
-    if (scoreProvider.score >= widget.totalCount) {
+    if (scoreProvider.score > widget.totalCount) {
       Toast showToast = Toast(context);
       showToast.showToast();
     }
@@ -45,6 +46,7 @@ class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
 
   @override
   Widget build(BuildContext context) {
+    clearInput();
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -79,5 +81,15 @@ class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
         ],
       ),
     );
+  }
+
+  void clearInput() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      InputClearModel clearInput = ref.watch(inputClearNotifierProvider);
+      if (clearInput.inputClear) {
+        emojiTextController.text = "";
+        ref.read(inputClearNotifierProvider.notifier).dontClear();
+      }
+    });
   }
 }

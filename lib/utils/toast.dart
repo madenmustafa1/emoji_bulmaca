@@ -28,4 +28,16 @@ class Toast {
   void handleTimeout() {
     Navigator.of(context).pop();
   }
+
+  void customToast(String title, String message) {
+    MotionToast(
+      animationDuration: Duration(milliseconds: 200),
+      toastDuration: const Duration(milliseconds: 200),
+      icon: Icons.emoji_events,
+      primaryColor: Colors.orange,
+      title: Text(title),
+      description: Text(message),
+      position: MOTION_TOAST_POSITION.center,
+    ).show(context);
+  }
 }

@@ -1,7 +1,7 @@
-import 'package:emoji_bulmaca/pages/main_page/emoji_list.dart';
-import 'package:emoji_bulmaca/widgets/emoji_happy.dart';
-import 'package:emoji_bulmaca/widgets/main_page_title_widget.dart';
 import 'package:flutter/material.dart';
+import '../../pages/main_page/emoji_list.dart';
+import '../../widgets/emoji_happy.dart';
+import '../../widgets/main_page_title_widget.dart';
 import '../../widgets/category_list_widget.dart';
 
 class MainPage extends StatefulWidget {
@@ -11,8 +11,10 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
+
 class _MainPageState extends State<MainPage> {
   late EmojiList emojiList;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,8 @@ class _MainPageState extends State<MainPage> {
           Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).padding.top + 50,
+                height: MediaQuery.of(context).padding.top +
+                    MediaQuery.of(context).padding.top / 1.2,
               ),
               MainTitleWidget(),
               CategoryListWidget()
