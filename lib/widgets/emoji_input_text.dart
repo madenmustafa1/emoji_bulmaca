@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../widgets/finish_widget.dart';
 import '../model/input_text_clear_model.dart';
 import '../model/score_model.dart';
 import '../utils/constants.dart';
-import '../utils/toast.dart';
 import '../providers/song_page_provider.dart';
 import '../widgets/emoji_control_button.dart';
 
@@ -21,17 +21,7 @@ class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
 
   Constants constants = Constants();
 
-  Timer scheduleTimeout([int milliseconds = 1000]) =>
-      Timer(Duration(milliseconds: milliseconds), handleTimeout);
-
-  void handleTimeout() {
-    ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
-    if (scoreProvider.score > widget.totalCount) {
-      Toast showToast = Toast(context);
-      showToast.showToast();
-    }
-  }
-
+  late Size size;
   @override
   void initState() {
     super.initState();
@@ -46,50 +36,73 @@ class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
 
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    ScoreModel scoreProvider = ref.read(scoreNotifierProvider);
+
     clearInput();
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width / 1.3,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: bottomPadding),
-              child: TextField(
-                onChanged: (value) {
-                  ref
-                      .read(emojiInputTextNotifierProvider.notifier)
-                      .text(value: value);
-                },
-                controller: emojiTextController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: constants.BUTTON_COLOR)),
-                  hintText: 'Tahminin nedir?',
-                  labelText: 'Şarkıyı bul',
-                  suffixStyle: TextStyle(color: constants.BUTTON_COLOR),
+
+    if (widget.totalCount < scoreProvider.score) {
+      return const FinishWidget();
+    } else {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: bottomPadding),
+                child: TextField(
+                  onChanged: (value) {
+                    ref
+                        .read(emojiInputTextNotifierProvider.notifier)
+                        .text(value: value);
+                  },
+                  controller: emojiTextController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: constants.BUTTON_COLOR)),
+                    hintText: 'Tahminin nedir?',
+                    labelText: 'Şarkıyı bul',
+                    suffixStyle: TextStyle(color: constants.BUTTON_COLOR),
+                  ),
                 ),
               ),
             ),
-          ),
-          EmojiControlButton(
-            totalCount: widget.totalCount,
-          ),
-        ],
-      ),
-    );
+            EmojiControlButton(
+              totalCount: widget.totalCount,
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   void clearInput() {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       InputClearModel clearInput = ref.watch(inputClearNotifierProvider);
       if (clearInput.inputClear) {
-        emojiTextController.text = "";
+        String inputValue = ref.read(emojiInputTextNotifierProvider).text;
+        if (inputValue.trim() == "") {
+          emojiTextController.text = "";
+        } else {
+          emojiTextController.text = inputValue;
+        }
         ref.read(inputClearNotifierProvider.notifier).dontClear();
       }
     });
+  }
+
+  Timer scheduleTimeout([int milliseconds = 500]) =>
+      Timer(Duration(milliseconds: milliseconds), handleTimeout);
+
+  void handleTimeout() {
+    ScoreModel scoreProvider = ref.read(scoreNotifierProvider);
+    if (scoreProvider.score > widget.totalCount) {
+      setState(() {});
+    }
   }
 }

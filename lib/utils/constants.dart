@@ -39,4 +39,7 @@ class CText {
   static String TOAST_TITLE = "Başardın!";
   static String TOAST_INFO =
       "Tebrikler bölümü tamamladın. Hadi diğer bölümlere geçelim.";
+
+  static String FINISH_CHAPTER_INFO = "Tebrikler bölümü tamamladın!";
+  static String FINISH_CHAPTER_TEXT = "Geri dön"; 
 }

@@ -1,3 +1,4 @@
+import 'package:emoji_bulmaca/widgets/answer_button.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/emoji_happy.dart';
@@ -42,9 +43,11 @@ class _SongPageState extends State<SongPage> {
                 //Scor
                 CountWidget(totalCount: widget.totalCount),
                 //Emoji Image
-                EmojiImage(emojiKey: widget.emojiKey),
-                //
-                const SizedBox(height: 10),
+                EmojiImage(emojiKey: widget.emojiKey, totalCount: widget.totalCount),
+                //Answer Button
+                AnswerButton(),
+                //Sized Box
+                const SizedBox(height: 5),
                 //Emoji input text
                 EmojiInputText(totalCount: widget.totalCount),
               ],

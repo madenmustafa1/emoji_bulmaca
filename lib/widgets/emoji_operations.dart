@@ -7,14 +7,13 @@ import '../utils/constants.dart';
 class EmojiOperations {
   Constants constants = Constants();
 
-  Widget  newFutureBuilderText(int songsCount) {
+  Widget newFutureBuilderText(int songsCount) {
     return Text(
       songsCount.toString(),
       style: constants.returnTextStyle(constants.MAIN_TITLE_NO_2),
     );
   }
 
-  //Firebase
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<EmojiModel> getFirebaseEmojiInfo(String collection, int id) async {
