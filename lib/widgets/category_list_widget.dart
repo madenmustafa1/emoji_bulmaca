@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-
 import '../model/emoji_list_model.dart';
 import '../pages/main_page/emoji_list.dart';
 
 class CategoryListWidget extends StatelessWidget {
-  CategoryListWidget({Key? key}) : super(key: key);
-
-  late EmojiList emojiList;
-  late MediaQueryData queryData;
+  const CategoryListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    emojiList = EmojiList(context);
+    EmojiList emojiList = EmojiList(context);
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
     return Expanded(

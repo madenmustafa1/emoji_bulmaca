@@ -14,8 +14,8 @@ class Toast {
       toastDuration: const Duration(seconds: 3),
       icon: Icons.emoji_events,
       primaryColor: Colors.green,
-      title: Text(CText.TOAST_TITLE),
-      description: Text(CText.TOAST_INFO),
+      title: const Text(CText.TOAST_TITLE),
+      description: const Text(CText.TOAST_INFO),
       position: MOTION_TOAST_POSITION.center,
       backgroundType: BACKGROUND_TYPE.transparent,
     ).show(context);
@@ -32,7 +32,7 @@ class Toast {
 
   void customToast(String title, String message) {
     MotionToast(
-      animationDuration: Duration(milliseconds: 200),
+      animationDuration: const Duration(milliseconds: 200),
       toastDuration: const Duration(milliseconds: 200),
       icon: Icons.emoji_events,
       primaryColor: Colors.orange,

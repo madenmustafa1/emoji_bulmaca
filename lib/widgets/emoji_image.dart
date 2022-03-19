@@ -10,7 +10,7 @@ class EmojiImage extends ConsumerWidget {
   EmojiImage({Key? key, required this.emojiKey, required this.totalCount})
       : super(key: key);
 
-  EmojiOperations emojiOperations = EmojiOperations();
+  final EmojiOperations emojiOperations = EmojiOperations();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

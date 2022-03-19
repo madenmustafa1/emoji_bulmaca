@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
                 height: MediaQuery.of(context).padding.top + 85,
               ),
               MainTitleWidget(),
-              CategoryListWidget(),
+              const CategoryListWidget(),
             ],
           ),
         ],

@@ -12,8 +12,8 @@ class EmojiControlButton extends ConsumerWidget {
   final int totalCount;
   EmojiControlButton({Key? key, required this.totalCount}) : super(key: key);
 
-  Constants constants = Constants();
-  EmojiOperations emojiOperations = EmojiOperations();
+  final Constants constants = Constants();
+  final EmojiOperations emojiOperations = EmojiOperations();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -7,10 +7,11 @@ import '../model/score_model.dart';
 import '../providers/song_page_provider.dart';
 import 'emoji_operations.dart';
 
+
 class AnswerButton extends ConsumerWidget {
   AnswerButton({Key? key}) : super(key: key);
 
-  EmojiOperations emojiOperations = EmojiOperations();
+  final EmojiOperations emojiOperations = EmojiOperations();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
