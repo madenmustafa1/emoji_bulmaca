@@ -6,17 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CountWidget extends ConsumerWidget {
-  int totalCount;
+  final int totalCount;
   CountWidget({Key? key, required this.totalCount}) : super(key: key);
 
-  ConstantsWidgets constantsWidgets = ConstantsWidgets();
-  EmojiOperations emojiOperations = EmojiOperations();
-
-  late ScoreModel scoreProvider;
+  final ConstantsWidgets constantsWidgets = ConstantsWidgets();
+  final EmojiOperations emojiOperations = EmojiOperations();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    scoreProvider = ref.watch(scoreNotifierProvider);
+    ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
     String emojiKey = ref.read(emojiKeyNotifierProvider.notifier).getKey();
     ref.read(scoreNotifierProvider.notifier).getScoreCount(emojiKey);
 

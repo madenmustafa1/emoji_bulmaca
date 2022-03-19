@@ -7,12 +7,11 @@ class MainTitleWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  late MediaQueryData queryData;
-  Constants constants = Constants();
+  final Constants constants = Constants();
 
   @override
   Widget build(BuildContext context) {
-    queryData = MediaQuery.of(context);
+    final MediaQueryData queryData = MediaQuery.of(context);
     return Center(
       child: Column(
         children: [

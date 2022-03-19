@@ -53,7 +53,7 @@ class _SongPageState extends State<SongPage> {
               ],
             ),
           ),
-          BackButtonWidget(),
+          const BackButtonWidget(),
         ],
       ),
     );

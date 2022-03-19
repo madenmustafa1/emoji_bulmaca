@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class BackButtonWidget extends StatelessWidget {
-  BackButtonWidget({Key? key}) : super(key: key);
-  late MediaQueryData queryData;
+  const BackButtonWidget({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
-    queryData = MediaQuery.of(context);
+    MediaQueryData queryData = MediaQuery.of(context);
     return InkWell(
       
       onTap: () => Navigator.of(context).pop(),

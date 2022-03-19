@@ -36,10 +36,13 @@ class HexColor extends Color {
 }
 
 class CText {
-  static String TOAST_TITLE = "Başardın!";
-  static String TOAST_INFO =
+  // ignore: constant_identifier_names
+  static const String TOAST_TITLE = "Başardın!";
+  // ignore: constant_identifier_names
+  static const String TOAST_INFO =
       "Tebrikler bölümü tamamladın. Hadi diğer bölümlere geçelim.";
-
-  static String FINISH_CHAPTER_INFO = "Tebrikler bölümü tamamladın!";
-  static String FINISH_CHAPTER_TEXT = "Geri dön"; 
+// ignore: constant_identifier_names
+  static const String FINISH_CHAPTER_INFO = "Tebrikler bölümü tamamladın!";
+  // ignore: constant_identifier_names
+  static const String FINISH_CHAPTER_TEXT = "Geri dön";
 }
