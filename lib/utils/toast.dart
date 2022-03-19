@@ -17,9 +17,10 @@ class Toast {
       title: Text(CText.TOAST_TITLE),
       description: Text(CText.TOAST_INFO),
       position: MOTION_TOAST_POSITION.center,
+      backgroundType: BACKGROUND_TYPE.transparent,
     ).show(context);
 
-    scheduleTimeout(3 * 1000);
+    //scheduleTimeout(3 * 1000);
   }
 
   Timer scheduleTimeout([int milliseconds = 3000]) =>

@@ -42,8 +42,7 @@ class _MainPageState extends State<MainPage> {
           Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).padding.top +
-                    MediaQuery.of(context).padding.top / 1.2,
+                height: MediaQuery.of(context).padding.top + 85,
               ),
               MainTitleWidget(),
               CategoryListWidget(),

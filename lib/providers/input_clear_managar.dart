@@ -5,7 +5,5 @@ class InputClearManager extends StateNotifier<InputClearModel> {
   InputClearManager() : super(InputClearModel(false));
 
   void clearInput() => state = InputClearModel(true);
-  void dontClear() {
-    state = InputClearModel(false);
-  }
+  void dontClear() => state = InputClearModel(false);
 }

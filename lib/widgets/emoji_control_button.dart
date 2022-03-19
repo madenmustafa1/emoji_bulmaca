@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/score_model.dart';
 import '../utils/play_sound.dart';
-import '../utils/toast.dart';
 import '../model/emoji_model.dart';
 import '../model/input_text_model.dart';
 import '../providers/song_page_provider.dart';
@@ -15,41 +14,45 @@ class EmojiControlButton extends ConsumerWidget {
 
   Constants constants = Constants();
   EmojiOperations emojiOperations = EmojiOperations();
-  late Toast showToast;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    showToast = Toast(context);
+    ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
+
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
 
     return Padding(
       padding: returnPadding(context),
-      child: Padding(
-        padding: EdgeInsets.only(bottom: bottomPadding),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height / 12,
-          child: SizedBox(
-            height: double.infinity,
-            child: ElevatedButton(
-              //Input control->
-              onPressed: () {
-                inputControl(ref);
-              },
-              child: const Icon(Icons.send),
-              style: ElevatedButton.styleFrom(primary: constants.BUTTON_COLOR),
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: bottomPadding),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 12,
+              child: SizedBox(
+                height: double.infinity,
+                child: ElevatedButton(
+                  //Input control->
+                  onPressed: () {
+                    inputControl(ref, scoreProvider);
+                  },
+                  child: const Icon(Icons.send),
+                  style:
+                      ElevatedButton.styleFrom(primary: constants.BUTTON_COLOR),
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  void inputControl(WidgetRef ref) async {
-    ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
+  void inputControl(WidgetRef ref, ScoreModel scoreProvider) async {
     TextModel textProvider = ref.watch(emojiInputTextNotifierProvider);
     String emojiKey = ref.read(emojiKeyNotifierProvider.notifier).getKey();
 
-    if (totalCount > scoreProvider.score) {
+    if (totalCount >= scoreProvider.score) {
       EmojiModel forEmojiName = await emojiOperations.getFirebaseEmojiInfo(
           emojiKey, scoreProvider.score);
 
@@ -65,7 +68,7 @@ class EmojiControlButton extends ConsumerWidget {
         if (textProvider.text.trim() != "") PlaySound.playWrongAudio();
       }
     } else {
-      showToast.showToast();
+      //showToast.showToast();
     }
   }
 

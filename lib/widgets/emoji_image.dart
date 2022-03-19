@@ -6,25 +6,35 @@ import '../providers/song_page_provider.dart';
 
 class EmojiImage extends ConsumerWidget {
   final String emojiKey;
-  EmojiImage({Key? key, required this.emojiKey}) : super(key: key);
+  final int totalCount;
+  EmojiImage({Key? key, required this.emojiKey, required this.totalCount})
+      : super(key: key);
 
   EmojiOperations emojiOperations = EmojiOperations();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    MediaQueryData queryData;
-    queryData = MediaQuery.of(context);
+    MediaQueryData queryData = MediaQuery.of(context);
 
     ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
     ref.read(emojiKeyNotifierProvider.notifier).setKey(emojiKey);
- 
-    return SizedBox(
-      height: queryData.size.height / 2.8,
-      child: emojiOperations.getEmojiPhoto(
-        emojiKey,
-        scoreProvider.score,
-        queryData,
-      ),
-    );
+
+    return getEmoji(scoreProvider, queryData);
   }
+
+  Widget getEmoji(ScoreModel scoreProvider, MediaQueryData queryData) {
+    if (scoreProvider.score <= totalCount) {
+      return SizedBox(
+        height: queryData.size.height / 2.8,
+        child: emojiOperations.getEmojiPhoto(
+          emojiKey,
+          scoreProvider.score,
+          queryData,
+        ),
+      );
+    } else {
+      return const SizedBox();
+    }
+  }
+
 }
