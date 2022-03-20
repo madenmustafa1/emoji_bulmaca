@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../dependency_injection/setup.dart';
 import '../model/score_model.dart';
 import '../utils/play_sound.dart';
 import '../model/emoji_model.dart';
@@ -12,12 +13,13 @@ class EmojiControlButton extends ConsumerWidget {
   final int totalCount;
   EmojiControlButton({Key? key, required this.totalCount}) : super(key: key);
 
-  final Constants constants = Constants();
+  final Constants constants = getIt<Constants>();
   final EmojiOperations emojiOperations = EmojiOperations();
+  final PlaySound playSound = getIt<PlaySound>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
+    final ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
 
     final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
 
@@ -63,12 +65,10 @@ class EmojiControlButton extends ConsumerWidget {
             .increaseTheScore(key: emojiKey);
 
         ref.read(inputClearNotifierProvider.notifier).clearInput();
-        PlaySound.playTrueAudio();
+        playSound.playTrueAudio();
       } else {
-        if (textProvider.text.trim() != "") PlaySound.playWrongAudio();
+        if (textProvider.text.trim() != "") playSound.playWrongAudio();
       }
-    } else {
-      //showToast.showToast();
     }
   }
 

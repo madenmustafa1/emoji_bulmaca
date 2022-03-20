@@ -2,10 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emoji_bulmaca/model/emoji_model.dart';
 import 'package:flutter/material.dart';
 
+import '../dependency_injection/setup.dart';
 import '../utils/constants.dart';
 
 class EmojiOperations {
-  Constants constants = Constants();
+  Constants constants = getIt<Constants>();
 
   Widget newFutureBuilderText(int songsCount) {
     return Text(
@@ -46,6 +47,7 @@ class EmojiOperations {
     }
   }
 
+  //Photo Url -> collection..document..url / req. -> getFirebaseEmojiInfo
   Widget getEmojiPhoto(String collection, int id, MediaQueryData queryData) {
     return FutureBuilder(
         future: getFirebaseEmojiInfo(collection, id),

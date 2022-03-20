@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../dependency_injection/setup.dart';
 import '../utils/constants.dart';
 
 class MainTitleWidget extends StatelessWidget {
@@ -7,7 +7,7 @@ class MainTitleWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final Constants constants = Constants();
+  final Constants constants = getIt<Constants>();
 
   @override
   Widget build(BuildContext context) {

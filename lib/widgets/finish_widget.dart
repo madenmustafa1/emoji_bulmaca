@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../dependency_injection/setup.dart';
 import '../utils/constants.dart';
 
 class FinishWidget extends StatelessWidget {
@@ -10,7 +11,7 @@ class FinishWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    Constants constants = Constants();
+    Constants constants = getIt<Constants>();
 
     return Column(
       children: [

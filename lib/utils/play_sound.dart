@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlaySound {
-  static void playTutorial() async {
+  void playTutorial() async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     String tutorialKey = "tutorial";
     bool tutorialShow = await _prefs.then((SharedPreferences prefs) {
@@ -21,13 +21,13 @@ class PlaySound {
     }
   }
 
-  static void playWrongAudio() async {
+  void playWrongAudio() async {
     int random = Random().nextInt(4) + 1;
     AudioCache cache = AudioCache();
     await cache.play("audio/wrong$random.mp3");
   }
 
-  static void playTrueAudio() async {
+  void playTrueAudio() async {
     int random = Random().nextInt(4) + 1;
     AudioCache cache = AudioCache();
     await cache.play("audio/true$random.mp3");
