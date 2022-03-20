@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../dependency_injection/setup.dart';
 import '../widgets/finish_widget.dart';
 import '../model/input_text_clear_model.dart';
 import '../model/score_model.dart';
@@ -19,7 +20,7 @@ class EmojiInputText extends ConsumerStatefulWidget {
 class _EmojiInputTextState extends ConsumerState<EmojiInputText> {
   TextEditingController emojiTextController = TextEditingController();
 
-  Constants constants = Constants();
+  Constants constants = getIt<Constants>();
 
   late Size size;
   @override

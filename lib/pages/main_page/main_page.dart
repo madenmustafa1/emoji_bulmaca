@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../dependency_injection/setup.dart';
 import '../../pages/main_page/emoji_list.dart';
 import '../../utils/play_sound.dart';
 import '../../widgets/emoji_happy.dart';
@@ -15,10 +16,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late EmojiList emojiList;
 
+  final PlaySound playSound = getIt<PlaySound>();
+
   @override
   void initState() {
     super.initState();
-    PlaySound.playTutorial();
+    playSound.playTutorial();
   }
 
   @override
