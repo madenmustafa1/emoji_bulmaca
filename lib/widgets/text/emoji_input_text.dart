@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../dependency_injection/setup.dart';
-import '../widgets/finish_widget.dart';
-import '../model/input_text_clear_model.dart';
-import '../model/score_model.dart';
-import '../utils/constants.dart';
-import '../providers/song_page_provider.dart';
-import '../widgets/emoji_control_button.dart';
+import '../../dependency_injection/setup.dart';
+import '../image/finish_widget.dart';
+import '../../model/input_text_clear_model.dart';
+import '../../model/score_model.dart';
+import '../../utils/constants.dart';
+import '../../providers/song_page_provider.dart';
+import '../button/emoji_control_button.dart';
 
 class EmojiInputText extends ConsumerStatefulWidget {
   final int totalCount;

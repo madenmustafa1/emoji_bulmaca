@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../dependency_injection/setup.dart';
-import '../utils/constants.dart';
+import '../../dependency_injection/setup.dart';
+import '../../utils/constants.dart';
 
 class FinishWidget extends StatelessWidget {
   const FinishWidget({Key? key}) : super(key: key);

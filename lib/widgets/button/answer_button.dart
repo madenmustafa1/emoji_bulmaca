@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
-import '../model/emoji_model.dart';
-import '../model/score_model.dart';
-import '../providers/song_page_provider.dart';
-import 'emoji_operations.dart';
+import '../../dependency_injection/setup.dart';
+import '../../model/emoji_model.dart';
+import '../../model/score_model.dart';
+import '../../providers/song_page_provider.dart';
+import '../../view_model/emoji_operations_vm.dart';
 
 
 class AnswerButton extends ConsumerWidget {
   AnswerButton({Key? key}) : super(key: key);
 
-  final EmojiOperations emojiOperations = EmojiOperations();
+  final EmojiOperationsViewModel emojiOperations = getIt<EmojiOperationsViewModel>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

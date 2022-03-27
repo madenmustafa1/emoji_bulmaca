@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../dependency_injection/setup.dart';
-import '../utils/constants.dart';
+import '../../dependency_injection/setup.dart';
+import '../../utils/constants.dart';
 
 class MainTitleWidget extends StatelessWidget {
   MainTitleWidget({

@@ -1,10 +1,10 @@
-import 'package:emoji_bulmaca/widgets/answer_button.dart';
+import 'package:emoji_bulmaca/widgets/button/answer_button.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/back_button.dart';
-import '../../widgets/emoji_happy.dart';
-import '../../widgets/emoji_image.dart';
-import '../../widgets/emoji_input_text.dart';
-import '../../widgets/count_widget.dart';
+import '../../widgets/button/back_button.dart';
+import '../../widgets/image/emoji_happy.dart';
+import '../../widgets/image/emoji_image.dart';
+import '../../widgets/text/emoji_input_text.dart';
+import '../../widgets/text/count_widget.dart';
 
 class SongPage extends StatefulWidget {
   final int totalCount;

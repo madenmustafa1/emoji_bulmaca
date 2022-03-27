@@ -1,10 +1,11 @@
+import 'package:emoji_bulmaca/widgets/button/send_emoji_.dart';
 import 'package:flutter/material.dart';
 import '../../dependency_injection/setup.dart';
 import '../../pages/main_page/emoji_list.dart';
 import '../../utils/play_sound.dart';
-import '../../widgets/emoji_happy.dart';
-import '../../widgets/main_page_title_widget.dart';
-import '../../widgets/category_list_widget.dart';
+import '../../widgets/image/emoji_happy.dart';
+import '../../widgets/text/main_page_title_widget.dart';
+import '../../widgets/list/category_list_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -15,7 +16,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late EmojiList emojiList;
-
   final PlaySound playSound = getIt<PlaySound>();
 
   @override
@@ -48,6 +48,7 @@ class _MainPageState extends State<MainPage> {
                 height: MediaQuery.of(context).padding.top + 85,
               ),
               MainTitleWidget(),
+              SendEmoji(),
               const CategoryListWidget(),
             ],
           ),
