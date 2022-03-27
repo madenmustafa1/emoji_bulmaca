@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../model/emoji_list_model.dart';
-import '../pages/main_page/emoji_list.dart';
+import '../../model/emoji_list_model.dart';
+import '../../pages/main_page/emoji_list.dart';
 
 class CategoryListWidget extends StatelessWidget {
   const CategoryListWidget({Key? key}) : super(key: key);
@@ -8,8 +8,7 @@ class CategoryListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EmojiList emojiList = EmojiList(context);
-    MediaQueryData queryData;
-    queryData = MediaQuery.of(context);
+    MediaQueryData queryData = MediaQuery.of(context);
     return Expanded(
         child: FutureBuilder<List<EmojiListModel>>(
       future: emojiList.getEmojiList(),

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../dependency_injection/setup.dart';
-import '../model/score_model.dart';
-import '../utils/play_sound.dart';
-import '../model/emoji_model.dart';
-import '../model/input_text_model.dart';
-import '../providers/song_page_provider.dart';
-import '../utils/constants.dart';
-import 'emoji_operations.dart';
+import '../../dependency_injection/setup.dart';
+import '../../model/score_model.dart';
+import '../../utils/play_sound.dart';
+import '../../model/emoji_model.dart';
+import '../../model/input_text_model.dart';
+import '../../providers/song_page_provider.dart';
+import '../../utils/constants.dart';
+import '../../view_model/emoji_operations_vm.dart';
 
 class EmojiControlButton extends ConsumerWidget {
   final int totalCount;
   EmojiControlButton({Key? key, required this.totalCount}) : super(key: key);
 
   final Constants constants = getIt<Constants>();
-  final EmojiOperations emojiOperations = EmojiOperations();
+  final EmojiOperationsViewModel emojiOperations = getIt<EmojiOperationsViewModel>();
   final PlaySound playSound = getIt<PlaySound>();
 
   @override

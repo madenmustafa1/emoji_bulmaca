@@ -1,8 +1,9 @@
-import 'package:emoji_bulmaca/widgets/emoji_operations.dart';
+import 'package:emoji_bulmaca/view_model/emoji_operations_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../model/score_model.dart';
-import '../providers/song_page_provider.dart';
+import '../../dependency_injection/setup.dart';
+import '../../model/score_model.dart';
+import '../../providers/song_page_provider.dart';
 
 class EmojiImage extends ConsumerWidget {
   final String emojiKey;
@@ -10,7 +11,7 @@ class EmojiImage extends ConsumerWidget {
   EmojiImage({Key? key, required this.emojiKey, required this.totalCount})
       : super(key: key);
 
-  final EmojiOperations emojiOperations = EmojiOperations();
+  final EmojiOperationsViewModel emojiOperations = getIt<EmojiOperationsViewModel>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

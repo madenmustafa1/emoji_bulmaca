@@ -1,23 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:emoji_bulmaca/model/emoji_model.dart';
 import 'package:flutter/material.dart';
 
-import '../dependency_injection/setup.dart';
-import '../utils/constants.dart';
+import '../model/add_emoji_model.dart';
+import '../model/emoji_model.dart';
 
-class EmojiOperations {
-  Constants constants = getIt<Constants>();
-
-  Widget newFutureBuilderText(int songsCount) {
-    return Text(
-      songsCount.toString(),
-      style: constants.returnTextStyle(constants.MAIN_TITLE_NO_2),
-    );
-  }
-
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  Future<EmojiModel> getFirebaseEmojiInfo(String collection, int id) async {
+class Repository {
+  Future<EmojiModel> getFirebaseEmojiInfo({
+    required String collection,
+    required int id,
+  }) async {
     CollectionReference users =
         FirebaseFirestore.instance.collection(collection);
     EmojiModel emojiModel;
@@ -47,10 +38,13 @@ class EmojiOperations {
     }
   }
 
-  //Photo Url -> collection..document..url / req. -> getFirebaseEmojiInfo
-  Widget getEmojiPhoto(String collection, int id, MediaQueryData queryData) {
+  Widget getEmojiPhoto({
+    required String collection,
+    required int id,
+    required MediaQueryData queryData,
+  }) {
     return FutureBuilder(
-        future: getFirebaseEmojiInfo(collection, id),
+        future: getFirebaseEmojiInfo(collection: collection, id: id),
         builder: (context, AsyncSnapshot<EmojiModel> snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
@@ -72,5 +66,15 @@ class EmojiOperations {
             }
           }
         });
+  }
+
+  void addEmoji(AddEmojiModel addEmojiModel) async {
+    CollectionReference addEmojiRef =
+        FirebaseFirestore.instance.collection('add_emoji');
+    Map<String, dynamic> map = addEmojiModel.toJson();
+    addEmojiRef
+        .add(map)
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
   }
 }
