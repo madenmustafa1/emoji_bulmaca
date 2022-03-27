@@ -1,5 +1,5 @@
-import 'package:emoji_bulmaca/utils/constants.dart';
-import 'package:emoji_bulmaca/utils/play_sound.dart';
+import '../utils/constants.dart';
+import '../utils/play_sound.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
