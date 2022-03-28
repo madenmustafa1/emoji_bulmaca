@@ -14,7 +14,8 @@ class EmojiControlButton extends ConsumerWidget {
   EmojiControlButton({Key? key, required this.totalCount}) : super(key: key);
 
   final Constants constants = getIt<Constants>();
-  final EmojiOperationsViewModel emojiOperations = getIt<EmojiOperationsViewModel>();
+  final EmojiOperationsViewModel emojiOperations =
+      getIt<EmojiOperationsViewModel>();
   final PlaySound playSound = getIt<PlaySound>();
 
   @override
@@ -58,7 +59,8 @@ class EmojiControlButton extends ConsumerWidget {
       EmojiModel forEmojiName = await emojiOperations.getFirebaseEmojiInfo(
           emojiKey, scoreProvider.score);
 
-      if (textProvider.text.replaceAll(' ', '') == forEmojiName.name) {
+      if (textProvider.text.replaceAll(' ', '').toLowerCase() ==
+          forEmojiName.name) {
         ref.read(emojiInputTextNotifierProvider.notifier).text(value: "");
         ref
             .read(scoreNotifierProvider.notifier)

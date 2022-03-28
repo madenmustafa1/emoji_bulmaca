@@ -1,12 +1,14 @@
+import 'package:emoji_bulmaca/widgets/list/emojilist_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../model/emoji_list_model.dart';
 import '../../pages/main_page/emoji_list.dart';
 
-class CategoryListWidget extends StatelessWidget {
+class CategoryListWidget extends ConsumerWidget {
   const CategoryListWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     EmojiList emojiList = EmojiList(context);
     MediaQueryData queryData = MediaQuery.of(context);
     return Expanded(
@@ -23,6 +25,11 @@ class CategoryListWidget extends StatelessWidget {
             itemCount: snapshot.data!.length,
             itemBuilder: (BuildContext context, int index) {
               EmojiListModel emojiListModel = snapshot.data![index];
+              return EmojiListItem(
+                  url: emojiListModel.coverUrl,
+                  totalCount: emojiListModel.totalCount,
+                  emojiKey: emojiListModel.name);
+
               return emojiList.listViewItem(
                 emojiListModel.coverUrl,
                 queryData,

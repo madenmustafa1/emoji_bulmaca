@@ -18,4 +18,6 @@ class ScoreManager extends StateNotifier<ScoreModel> {
     state = ScoreModel(score + scoreI);
     _prefs.then((value) => value.setInt(key, state.score));
   }
+
+  void resetScore() => state = ScoreModel(1);
 }
