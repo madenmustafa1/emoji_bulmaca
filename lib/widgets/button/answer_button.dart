@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../dependency_injection/setup.dart';
 import '../../model/emoji_model.dart';
 import '../../model/score_model.dart';
