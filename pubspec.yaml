@@ -26,6 +26,7 @@ dependencies:
   audioplayers: ^0.20.1
   get_it: ^7.2.0
   uuid: ^3.0.6
+  google_mobile_ads: ^1.2.0
 
 dev_dependencies:
   flutter_test:

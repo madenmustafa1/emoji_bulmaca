@@ -2,6 +2,7 @@ import 'package:emoji_bulmaca/widgets/button/send_emoji_.dart';
 import 'package:flutter/material.dart';
 import '../../dependency_injection/setup.dart';
 import '../../pages/main_page/emoji_list.dart';
+import '../../utils/admob/show_ad.dart';
 import '../../utils/play_sound.dart';
 import '../../widgets/image/emoji_happy.dart';
 import '../../widgets/text/main_page_title_widget.dart';
@@ -50,6 +51,7 @@ class _MainPageState extends State<MainPage> {
               MainTitleWidget(),
               SendEmoji(),
               const CategoryListWidget(),
+              ShowAd()
             ],
           ),
         ],

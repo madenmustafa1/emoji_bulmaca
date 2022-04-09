@@ -49,3 +49,5 @@ app.*.map.json
 /ios/Runner/GoogleService-Info.plist
 
 
+
+lib/utils/admob/ad_mob_constants.dart
