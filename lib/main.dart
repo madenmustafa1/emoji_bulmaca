@@ -3,13 +3,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'pages/main_page/main_page.dart';
 
 void main() async {
   setup();
 
   WidgetsFlutterBinding.ensureInitialized();
+  await MobileAds.instance.initialize();
   await Firebase.initializeApp();
+   
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
