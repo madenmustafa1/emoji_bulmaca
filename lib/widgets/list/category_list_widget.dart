@@ -10,7 +10,6 @@ class CategoryListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     EmojiList emojiList = EmojiList(context);
-    MediaQueryData queryData = MediaQuery.of(context);
     return Expanded(
         child: FutureBuilder<List<EmojiListModel>>(
       future: emojiList.getEmojiList(),
@@ -29,13 +28,6 @@ class CategoryListWidget extends ConsumerWidget {
                   url: emojiListModel.coverUrl,
                   totalCount: emojiListModel.totalCount,
                   emojiKey: emojiListModel.name);
-
-              return emojiList.listViewItem(
-                emojiListModel.coverUrl,
-                queryData,
-                emojiListModel.totalCount,
-                emojiListModel.name,
-              );
             },
           );
         }

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class AddEmojiModel {
   final String emojiName;
   final String uuid;

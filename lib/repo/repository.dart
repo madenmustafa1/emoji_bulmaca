@@ -72,9 +72,6 @@ class Repository {
     CollectionReference addEmojiRef =
         FirebaseFirestore.instance.collection('add_emoji');
     Map<String, dynamic> map = addEmojiModel.toJson();
-    addEmojiRef
-        .add(map)
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
+    addEmojiRef.add(map).then((value) {}).catchError((error) {});
   }
 }

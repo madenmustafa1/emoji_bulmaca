@@ -1,6 +1,8 @@
-import 'package:emoji_bulmaca/widgets/button/answer_button.dart';
 import 'package:flutter/material.dart';
+import '../../utils/page.dart';
+import '../../widgets/button/answer_button.dart';
 import '../../widgets/button/back_button.dart';
+import '../../widgets/button/music_on_off.dart';
 import '../../widgets/image/emoji_happy.dart';
 import '../../widgets/image/emoji_image.dart';
 import '../../widgets/text/emoji_input_text.dart';
@@ -34,6 +36,10 @@ class _SongPageState extends State<SongPage> {
             width: queryData.size.width,
             child: Image.asset('assets/bg/bg.jpg', fit: BoxFit.fill),
           ),
+          MusicOnOffWidget(
+            queryData: queryData,
+            page: PAGE.SONG,
+          ),
           EmojiHappyAndSad(queryData: queryData),
           SingleChildScrollView(
             reverse: true,
@@ -43,7 +49,8 @@ class _SongPageState extends State<SongPage> {
                 //Scor
                 CountWidget(totalCount: widget.totalCount),
                 //Emoji Image
-                EmojiImage(emojiKey: widget.emojiKey, totalCount: widget.totalCount),
+                EmojiImage(
+                    emojiKey: widget.emojiKey, totalCount: widget.totalCount),
                 //Answer Button
                 AnswerButton(),
                 //Sized Box

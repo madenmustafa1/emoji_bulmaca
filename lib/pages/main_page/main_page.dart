@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../dependency_injection/setup.dart';
 import '../../pages/main_page/emoji_list.dart';
 import '../../utils/admob/show_ad.dart';
+import '../../utils/page.dart';
 import '../../utils/play_sound.dart';
 import '../../widgets/image/emoji_happy.dart';
 import '../../widgets/text/main_page_title_widget.dart';
@@ -32,7 +33,6 @@ class _MainPageState extends State<MainPage> {
     emojiList = EmojiList(context);
 
     return Scaffold(
-      //floatingActionButton: MusicOnOffWidget(queryData: queryData),
       body: Stack(
         children: [
           SizedBox(
@@ -43,7 +43,10 @@ class _MainPageState extends State<MainPage> {
               fit: BoxFit.fill,
             ),
           ),
-          MusicOnOffWidget(queryData: queryData),
+          MusicOnOffWidget(
+            queryData: queryData,
+            page: PAGE.MAIN,
+          ),
           EmojiHappyAndSad(queryData: queryData),
           Column(
             children: [
@@ -53,7 +56,7 @@ class _MainPageState extends State<MainPage> {
               MainTitleWidget(),
               SendEmoji(),
               const CategoryListWidget(),
-              ShowAd()
+              const ShowAd()
             ],
           ),
         ],
