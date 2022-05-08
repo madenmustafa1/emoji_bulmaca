@@ -36,10 +36,6 @@ class _SongPageState extends State<SongPage> {
             width: queryData.size.width,
             child: Image.asset('assets/bg/bg.jpg', fit: BoxFit.fill),
           ),
-          MusicOnOffWidget(
-            queryData: queryData,
-            page: PAGE.SONG,
-          ),
           EmojiHappyAndSad(queryData: queryData),
           SingleChildScrollView(
             reverse: true,
@@ -61,6 +57,10 @@ class _SongPageState extends State<SongPage> {
             ),
           ),
           const BackButtonWidget(),
+          MusicOnOffWidget(
+            queryData: queryData,
+            page: PAGE.SONG,
+          ),
         ],
       ),
     );
