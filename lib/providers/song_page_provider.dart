@@ -1,3 +1,6 @@
+import 'package:emoji_bulmaca/model/voice_check_model.dart';
+import 'package:emoji_bulmaca/providers/voice_change_manager.dart';
+
 import '../model/emoji_model.dart';
 import '../model/input_text_clear_model.dart';
 import '../model/input_text_model.dart';
@@ -25,5 +28,11 @@ final StateNotifierProvider<EmojiKeyManager, String> emojiKeyNotifierProvider =
     StateNotifierProvider<EmojiKeyManager, String>((ref) => EmojiKeyManager());
 
 final StateNotifierProvider<InputClearManager, InputClearModel>
-    inputClearNotifierProvider = StateNotifierProvider<InputClearManager, InputClearModel>(
+    inputClearNotifierProvider =
+    StateNotifierProvider<InputClearManager, InputClearModel>(
         (ref) => InputClearManager());
+
+final StateNotifierProvider<VoiceChangeManager, VoiceCheckModel>
+    voiceCheckNotifierProvider =
+    StateNotifierProvider<VoiceChangeManager, VoiceCheckModel>(
+        (ref) => VoiceChangeManager());

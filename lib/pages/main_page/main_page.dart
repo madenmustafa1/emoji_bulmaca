@@ -1,3 +1,4 @@
+import 'package:emoji_bulmaca/widgets/button/music_on_off.dart';
 import 'package:emoji_bulmaca/widgets/button/send_emoji_.dart';
 import 'package:flutter/material.dart';
 import '../../dependency_injection/setup.dart';
@@ -27,11 +28,11 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData queryData;
-    queryData = MediaQuery.of(context);
+    MediaQueryData queryData = MediaQuery.of(context);
     emojiList = EmojiList(context);
 
     return Scaffold(
+      //floatingActionButton: MusicOnOffWidget(queryData: queryData),
       body: Stack(
         children: [
           SizedBox(
@@ -42,6 +43,7 @@ class _MainPageState extends State<MainPage> {
               fit: BoxFit.fill,
             ),
           ),
+          MusicOnOffWidget(queryData: queryData),
           EmojiHappyAndSad(queryData: queryData),
           Column(
             children: [

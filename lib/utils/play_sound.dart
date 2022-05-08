@@ -1,12 +1,24 @@
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlaySound {
+  String voiceCheckKey = "VOICE_CHECK";
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  bool voiceMute = false;
+  Future<bool> voiceMuteCheck() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(voiceCheckKey) ?? false;
+  }
+
   void playTutorial() async {
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    voiceMute = await voiceMuteCheck();
+    if (voiceMute) {
+      return;
+    }
+
     String tutorialKey = "tutorial";
     bool tutorialShow = await _prefs.then((SharedPreferences prefs) {
       return prefs.getBool(tutorialKey) ?? true;
@@ -22,37 +34,21 @@ class PlaySound {
   }
 
   void playWrongAudio() async {
-    int random = Random().nextInt(4) + 1;
-    AudioCache cache = AudioCache();
-    await cache.play("audio/wrong$random.mp3");
+    voiceMute = await voiceMuteCheck();
+    if (!voiceMute) {
+      int random = Random().nextInt(4) + 1;
+      AudioCache cache = AudioCache();
+      await cache.play("audio/wrong$random.mp3");
+    }
   }
 
   void playTrueAudio() async {
-    int random = Random().nextInt(4) + 1;
-    AudioCache cache = AudioCache();
-    await cache.play("audio/true$random.mp3");
-  }
+    bool voiceMute = await voiceMuteCheck();
 
-  Widget audioVisualizer(MediaQueryData queryData) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(queryData.size.height / 40),
-              child: Opacity(
-                opacity: 0.8,
-                child: Lottie.asset(
-                  'assets/bg/mic_visualize.json',
-                  height: queryData.size.height / 12,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+    if (!voiceMute) {
+      int random = Random().nextInt(4) + 1;
+      AudioCache cache = AudioCache();
+      await cache.play("audio/true$random.mp3");
+    }
   }
 }
