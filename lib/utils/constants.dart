@@ -47,10 +47,14 @@ class CText {
   static const String FINISH_CHAPTER_TEXT = "Geri dön";
 
 
+  // ignore: constant_identifier_names
   static const String INPUT_DIALOG_TITLE = "Uygulamada hangi kategori veya içeriği görmek istersin?";
 
+  // ignore: constant_identifier_names
   static const String INPUT_DIALOG_TITLE_ID = "Görmek istediğin şarkı nedir?";
 
+  // ignore: constant_identifier_names
   static const String CLOSE = "KAPAT";
+  // ignore: constant_identifier_names
   static const String SEND = "GÖNDER";
 }

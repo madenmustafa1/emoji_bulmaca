@@ -8,7 +8,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../dependency_injection/setup.dart';
 
 class ShowAd extends StatefulWidget {
-  ShowAd({Key? key}) : super(key: key);
+  const ShowAd({Key? key}) : super(key: key);
 
   @override
   State<ShowAd> createState() => _ShowAdState();

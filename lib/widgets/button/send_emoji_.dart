@@ -22,7 +22,7 @@ class SendEmoji extends StatelessWidget {
           width: queryData.size.width / 6,
           child: InkWell(
             onTap: () => _displayTextInputDialog(context),
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
         ),
       ],

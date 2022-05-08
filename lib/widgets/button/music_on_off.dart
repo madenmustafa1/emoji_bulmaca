@@ -2,10 +2,14 @@ import 'package:emoji_bulmaca/model/voice_check_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/song_page_provider.dart';
+import '../../utils/page.dart';
 
 class MusicOnOffWidget extends ConsumerWidget {
   final MediaQueryData queryData;
-  const MusicOnOffWidget({Key? key, required this.queryData}) : super(key: key);
+  final PAGE page;
+  const MusicOnOffWidget(
+      {Key? key, required this.queryData, required this.page})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -13,7 +17,7 @@ class MusicOnOffWidget extends ConsumerWidget {
     return Column(
       children: [
         SizedBox(
-          height: queryData.size.height / 13,
+          height: queryData.size.height / 16,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -21,7 +25,11 @@ class MusicOnOffWidget extends ConsumerWidget {
             GestureDetector(
               onTap: () => voiceCheck(ref),
               child: Padding(
-                padding: EdgeInsets.only(left: queryData.size.width / 15),
+                padding: EdgeInsets.only(
+                  left: page == PAGE.MAIN
+                      ? queryData.size.width / 15
+                      : queryData.size.width / 7,
+                ),
                 child: Icon(
                   scoreProvider.voiceCheck == false
                       ? Icons.music_note
