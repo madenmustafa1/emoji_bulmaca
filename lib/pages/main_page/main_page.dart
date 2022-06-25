@@ -1,8 +1,9 @@
-import 'package:emoji_bulmaca/widgets/button/music_on_off.dart';
-import 'package:emoji_bulmaca/widgets/button/send_emoji_.dart';
 import 'package:flutter/material.dart';
 import '../../dependency_injection/setup.dart';
+import '/../widgets/button/music_on_off.dart';
+import '/../widgets/button/send_emoji_.dart';
 import '../../pages/main_page/emoji_list.dart';
+import '../../repo/repository-dio.dart';
 import '../../utils/admob/show_ad.dart';
 import '../../utils/page.dart';
 import '../../utils/play_sound.dart';
@@ -32,6 +33,7 @@ class _MainPageState extends State<MainPage> {
     MediaQueryData queryData = MediaQuery.of(context);
     emojiList = EmojiList(context);
 
+    getHttp();
     return Scaffold(
       body: Stack(
         children: [
@@ -62,5 +64,10 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
     );
+  }
+
+  void getHttp() async {
+    RepositoryDio repositoryDio = RepositoryDio();
+    await repositoryDio.getEmojiCategoryList();
   }
 }
