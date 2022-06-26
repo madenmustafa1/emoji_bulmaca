@@ -8,4 +8,10 @@ class LoginRequestModel {
     required this.password,
     required this.key,
   });
+
+    Map<String, dynamic> asMap() => {
+        'username': username,
+        'password': password,
+        'key': key,
+      };
 }

@@ -1,9 +1,9 @@
+import 'package:emoji_bulmaca/pages/main_page/main_page_view_model.dart';
 import 'package:flutter/material.dart';
 import '../../dependency_injection/setup.dart';
 import '/../widgets/button/music_on_off.dart';
 import '/../widgets/button/send_emoji_.dart';
 import '../../pages/main_page/emoji_list.dart';
-import '../../repo/repository-dio.dart';
 import '../../utils/admob/show_ad.dart';
 import '../../utils/page.dart';
 import '../../utils/play_sound.dart';
@@ -21,6 +21,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late EmojiList emojiList;
   final PlaySound playSound = getIt<PlaySound>();
+  final MainPageViewModel mainPageViewModel = getIt<MainPageViewModel>();
 
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _MainPageState extends State<MainPage> {
     MediaQueryData queryData = MediaQuery.of(context);
     emojiList = EmojiList(context);
 
-    getHttp();
+    mainPageViewModel.getToken();
     return Scaffold(
       body: Stack(
         children: [
@@ -64,10 +65,5 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
     );
-  }
-
-  void getHttp() async {
-    RepositoryDio repositoryDio = RepositoryDio();
-    await repositoryDio.getEmojiCategoryList();
   }
 }
