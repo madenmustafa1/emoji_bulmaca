@@ -5,7 +5,7 @@ class EmojiResponseModel {
   final String contentOwner;
   final int categoryId;
   final String image;
-  final int totalCount;
+  final int? totalCount;
 
   const EmojiResponseModel(
     this.totalCount,
