@@ -1,27 +1,31 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../model/emoji_list_model.dart';
-import '../../pages/song_page/song_page.dart';
-import '../../providers/song_page_provider.dart';
+import '/pages/song_page/song_page.dart';
+import '/providers/song_page_provider.dart';
 
 class EmojiListItem extends ConsumerWidget {
-  String url;
+  String base64Img;
   int totalCount;
   String emojiKey;
 
-  EmojiListItem(
-      {Key? key,
-      required this.url,
-      required this.totalCount,
-      required this.emojiKey})
-      : super(key: key);
+  EmojiListItem({
+    Key? key,
+    required this.base64Img,
+    required this.totalCount,
+    required this.emojiKey,
+  }) : super(key: key);
+
+  Uint8List? _bytesImage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    _bytesImage = const Base64Decoder().convert(base64Img);
+
     MediaQueryData queryData = MediaQuery.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 10),
@@ -30,29 +34,35 @@ class EmojiListItem extends ConsumerWidget {
         child: InkWell(
           onTap: () {
             ref.read(scoreNotifierProvider.notifier).resetScore();
-            Navigator.of(context).push(CupertinoPageRoute(
-              builder: (context) => SongPage(
-                totalCount: totalCount,
-                emojiKey: emojiKey,
+            Navigator.of(context).push(
+              CupertinoPageRoute(
+                builder: (context) => SongPage(
+                  totalCount: totalCount,
+                  emojiKey: emojiKey,
+                ),
               ),
-            ));
+            );
           },
           child: Container(
             height: queryData.size.height / 2.5,
             margin: const EdgeInsets.all(10),
             child: Center(
-              //Current emoji photo & change
-              child: Image.network(
-                url,
+                //Current emoji photo & change
+                child: _bytesImage != null
+                    ? Image.memory(_bytesImage!)
+                    : const Center()
+                /*Image.network(
+                base64Img,
                 fit: BoxFit.cover,
               ),
-            ),
+              */
+                ),
           ),
         ),
       ),
     );
   }
-
+  /*
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<List<EmojiListModel>> getEmojiList() async {
@@ -85,4 +95,5 @@ class EmojiListItem extends ConsumerWidget {
       return emojiListModel;
     }
   }
+  */
 }

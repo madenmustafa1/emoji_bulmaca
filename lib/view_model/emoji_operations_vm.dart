@@ -1,8 +1,8 @@
 import 'package:emoji_bulmaca/model/add_emoji_model.dart';
-import 'package:emoji_bulmaca/model/emoji_model.dart';
 import 'package:emoji_bulmaca/repo/repository.dart';
 import 'package:flutter/material.dart';
 import '../dependency_injection/setup.dart';
+import '../model/dio-model/emoji_response_model.dart';
 import '../utils/constants.dart';
 
 class EmojiOperationsViewModel {
@@ -16,15 +16,15 @@ class EmojiOperationsViewModel {
     );
   }
 
-  Future<EmojiModel> getFirebaseEmojiInfo(String collection, int id) async {
-    return _repository.getFirebaseEmojiInfo(collection: collection, id: id);
+  Future<EmojiResponseModel> getFirebaseEmojiInfo(String collection, int id) async {
+    return _repository.getFirebaseEmojiInfo(collection: collection, index: id);
   }
 
   //Photo Url -> collection..document..url / req. -> getFirebaseEmojiInfo
-  Widget getEmojiPhoto(String collection, int id, MediaQueryData queryData) {
+  Widget getEmojiPhoto(String collection, int index, MediaQueryData queryData) {
     return _repository.getEmojiPhoto(
       collection: collection,
-      id: id,
+      index: index,
       queryData: queryData,
     );
   }

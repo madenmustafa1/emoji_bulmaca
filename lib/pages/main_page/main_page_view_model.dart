@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import '/model/dio-model/emoji_list_model_dio.dart';
-import '/model/dio-model/emoji_response_model.dart';
 import '/dependency_injection/setup.dart';
 import '/model/dio-model/login_request_model.dart';
 import '/model/dio-model/login_response.dart';
 import '/repo/repository-dio.dart';
-import '/model/dio-model/emoji_request_model.dart';
 
 class MainPageViewModel {
   final RepositoryDio repositoryDio = getIt<RepositoryDio>();
+  LoginResponseModel? _token;
 
   Future<LoginResponseModel?> getToken() async {
     RepositoryDio repositoryDio = RepositoryDio();
@@ -18,27 +17,17 @@ class MainPageViewModel {
         key: "login_key");
     LoginResponseModel? result = await repositoryDio.login(loginRequestModel);
     debugPrint(result!.token);
-
+    _token = result;
     return result;
   }
 
   Future<List<EmojiCategoryModelDio>?> getEmojiCategoryList() async {
-    var token = await getToken();
-    List<EmojiCategoryModelDio>? emojiCategoryModel;
-    if (token != null) {
-      emojiCategoryModel = await repositoryDio.getEmojiCategoryList(token.token);
-    }
-    return emojiCategoryModel;
-  }
+    try {
+      _token ??= await getToken();
 
-  Future<EmojiResponseModel?> getEmoji(
-      EmojiRequestModel emojiRequestModel) async {
-    EmojiResponseModel? model;
-    var token = await getToken();
-    if (token != null) {
-      model = await repositoryDio.getEmoji(token.token, emojiRequestModel);
+      return await repositoryDio.getEmojiCategoryList(_token!.token);
+    } catch (e) {
+      return null;
     }
-
-    return model;
   }
 }

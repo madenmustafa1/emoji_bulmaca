@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../utils/page.dart';
-import '../../widgets/button/answer_button.dart';
-import '../../widgets/button/back_button.dart';
-import '../../widgets/button/music_on_off.dart';
-import '../../widgets/image/emoji_happy.dart';
-import '../../widgets/image/emoji_image.dart';
-import '../../widgets/text/emoji_input_text.dart';
-import '../../widgets/text/count_widget.dart';
+import '/utils/page.dart';
+import '/widgets/button/answer_button.dart';
+import '/widgets/button/back_button.dart';
+import '/widgets/button/music_on_off.dart';
+import '/widgets/image/emoji_happy.dart';
+import '/widgets/image/emoji_image.dart';
+import '/widgets/text/emoji_input_text.dart';
+import '/widgets/text/count_widget.dart';
 
 class SongPage extends StatefulWidget {
   final int totalCount;
@@ -44,6 +44,7 @@ class _SongPageState extends State<SongPage> {
                 SizedBox(height: queryData.size.height / 7.5),
                 //Scor
                 CountWidget(totalCount: widget.totalCount),
+
                 //Emoji Image
                 EmojiImage(
                     emojiKey: widget.emojiKey, totalCount: widget.totalCount),

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:emoji_bulmaca/pages/song_page/song_page_vm.dart';
 
 import '../pages/main_page/main_page_view_model.dart';
 import '../repo/repository-dio.dart';
@@ -26,4 +27,5 @@ void setup() {
   getIt.registerLazySingleton<Dio>(() => Dio());
 
   getIt.registerFactory<MainPageViewModel>(() => MainPageViewModel());
+  getIt.registerFactory<SongPageViewModel>(() => SongPageViewModel());
 }

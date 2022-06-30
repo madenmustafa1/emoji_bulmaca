@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../dependency_injection/setup.dart';
+import '../../model/dio-model/emoji_response_model.dart';
 import '../../model/score_model.dart';
 import '../../utils/play_sound.dart';
-import '../../model/emoji_model.dart';
 import '../../model/input_text_model.dart';
 import '../../providers/song_page_provider.dart';
 import '../../utils/constants.dart';
@@ -56,11 +56,10 @@ class EmojiControlButton extends ConsumerWidget {
     String emojiKey = ref.read(emojiKeyNotifierProvider.notifier).getKey();
 
     if (totalCount >= scoreProvider.score) {
-      EmojiModel forEmojiName = await emojiOperations.getFirebaseEmojiInfo(
-          emojiKey, scoreProvider.score);
-
-      if (textProvider.text.replaceAll(' ', '').toLowerCase() ==
-          forEmojiName.name) {
+      EmojiResponseModel forEmojiName = await emojiOperations
+          .getFirebaseEmojiInfo(emojiKey, scoreProvider.score);
+      //.replaceAll(' ', '')
+      if (textProvider.text.toLowerCase() == forEmojiName.answer.toLowerCase()) {
         ref.read(emojiInputTextNotifierProvider.notifier).text(value: "");
         ref
             .read(scoreNotifierProvider.notifier)

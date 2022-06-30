@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import '../../dependency_injection/setup.dart';
-import '../../model/emoji_model.dart';
-import '../../model/score_model.dart';
-import '../../providers/song_page_provider.dart';
-import '../../view_model/emoji_operations_vm.dart';
+import '/dependency_injection/setup.dart';
+import '/model/dio-model/emoji_response_model.dart';
+import '/model/score_model.dart';
+import '/providers/song_page_provider.dart';
+import '/view_model/emoji_operations_vm.dart';
 
 
 class AnswerButton extends ConsumerWidget {
@@ -36,12 +36,12 @@ class AnswerButton extends ConsumerWidget {
   void getEmojiAnswer(WidgetRef ref) async {
     ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
     String emojiKey = ref.read(emojiKeyNotifierProvider.notifier).getKey();
-    EmojiModel forEmojiName = await emojiOperations.getFirebaseEmojiInfo(
+    EmojiResponseModel forEmojiName = await emojiOperations.getFirebaseEmojiInfo(
         emojiKey, scoreProvider.score);
 
     ref.read(inputClearNotifierProvider.notifier).clearInput();
     ref
         .read(emojiInputTextNotifierProvider.notifier)
-        .text(value: forEmojiName.name);
+        .text(value: forEmojiName.answer);
   }
 }

@@ -1,19 +1,26 @@
-import 'package:emoji_bulmaca/widgets/list/emojilist_item.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../model/emoji_list_model.dart';
-import '../../pages/main_page/emoji_list.dart';
+import '/model/dio-model/emoji_list_model_dio.dart';
+import '/dependency_injection/setup.dart';
+import '/pages/main_page/main_page_view_model.dart';
+import '/widgets/list/emojilist_item.dart';
 
 class CategoryListWidget extends ConsumerWidget {
-  const CategoryListWidget({Key? key}) : super(key: key);
+  CategoryListWidget({Key? key}) : super(key: key);
+
+  //MainPageViewModel mainPageViewModel = MainPageViewModel();
+
+  final MainPageViewModel mainPageViewModel = getIt<MainPageViewModel>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    EmojiList emojiList = EmojiList(context);
+    //EmojiList emojiList = EmojiList(context);
     return Expanded(
-        child: FutureBuilder<List<EmojiListModel>>(
-      future: emojiList.getEmojiList(),
-      builder: (context, AsyncSnapshot<List<EmojiListModel>> snapshot) {
+        child: FutureBuilder<List<EmojiCategoryModelDio>?>(
+      future: mainPageViewModel.getEmojiCategoryList(),
+      builder: (context, AsyncSnapshot<List<EmojiCategoryModelDio>?> snapshot) {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         } else {
@@ -23,11 +30,12 @@ class CategoryListWidget extends ConsumerWidget {
             padding: const EdgeInsets.all(8),
             itemCount: snapshot.data!.length,
             itemBuilder: (BuildContext context, int index) {
-              EmojiListModel emojiListModel = snapshot.data![index];
+              EmojiCategoryModelDio emojiListModel = snapshot.data![index];
               return EmojiListItem(
-                  url: emojiListModel.coverUrl,
-                  totalCount: emojiListModel.totalCount,
-                  emojiKey: emojiListModel.name);
+                base64Img: emojiListModel.image,
+                totalCount: emojiListModel.totalCount,
+                emojiKey: emojiListModel.index.toString(),
+              );
             },
           );
         }
