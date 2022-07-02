@@ -1,30 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '/dependency_injection/setup.dart';
-import '/model/add_emoji_model.dart';
 import '/model/dio-model/emoji_request_model.dart';
 import '/model/dio-model/emoji_response_model.dart';
 import '/pages/song_page/song_page_vm.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 
-class Repository {
+class GetEmojiPhotoWidget {
   Uint8List? _bytesImage;
   final SongPageViewModel songPageViewModel = getIt<SongPageViewModel>();
-
-  Future<EmojiResponseModel> getFirebaseEmojiInfo({
-    required String collection,
-    required int index,
-  }) async {
-    EmojiResponseModel? result = await songPageViewModel
-        .getEmoji(EmojiRequestModel(index, int.parse(collection)));
-
-    if (result == null) {
-      return const EmojiResponseModel(1, "", "", 1, "", 1, "");
-    }
-    return result;
-  }
 
   Widget getEmojiPhoto({
     required String collection,
@@ -66,12 +50,5 @@ class Repository {
     }
     //Collection -> int -> kategori
     //id -> int -> index
-  }
-
-  void addEmoji(AddEmojiModel addEmojiModel) async {
-    CollectionReference addEmojiRef =
-        FirebaseFirestore.instance.collection('add_emoji');
-    Map<String, dynamic> map = addEmojiModel.toJson();
-    addEmojiRef.add(map).then((value) {}).catchError((error) {});
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:dio/dio.dart';
-import 'package:emoji_bulmaca/model/dio-model/emoji_request_model.dart';
+import '/model/add_emoji_model.dart';
+import '/model/dio-model/emoji_request_model.dart';
 import '/model/dio-model/emoji_response_model.dart';
 import '/model/dio-model/login_response.dart';
 import '/model/dio-model/login_request_model.dart';
@@ -15,9 +16,7 @@ class DioService implements DioInterface {
   final BASE_URL = "http://192.168.1.21:7070/";
 
   final Dio dio = getIt<Dio>();
-  /*
-  Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsInV1aWQiOiJkMGE1ZDU0MS00NzM3LTRlYzQtOTBkZC04NTk5YjU1ZjM2MGQiLCJlbWFpbCI6Im5hbWUxMjM1NTIzMjMifQ.HWFWxrYeFGMNVj7M8aCCOu6gv0IiNl9ulUEbsQbiFeA
-  */
+
   @override
   Future<List<EmojiCategoryModelDio>?> getEmojiCategoryList(String auth) async {
     List<EmojiCategoryModelDio>? emojiCategoryList;
@@ -57,10 +56,27 @@ class DioService implements DioInterface {
         data: emojiRequestModel.asMap());
 
     if (response.statusCode != SUCCESS) {
-      debugPrint(response.data.toString());
       return null;
     }
 
     return EmojiResponseModel.fromMap(response.data);
+  }
+
+  @override
+  Future<bool> addEmojiUserRequest(
+      String auth, AddEmojiModel addEmojiModel) async {
+    Response<dynamic> response = await dio.post(BASE_URL + 'add-emoji',
+        options: Options(headers: {
+          "Authorization": auth,
+        }),
+        data: addEmojiModel.asMap());
+
+    if (response.statusCode != SUCCESS) {
+      return Future.value(false);
+    }
+    var isSuccess = response.data as bool;
+
+    debugPrint(isSuccess.toString());
+    return isSuccess;
   }
 }

@@ -1,10 +1,8 @@
 import '/model/voice_check_model.dart';
 import '/providers/voice_change_manager.dart';
-import '/model/emoji_model.dart';
 import '/model/input_text_clear_model.dart';
 import '/model/input_text_model.dart';
 import '/providers/emoji_key_manager.dart';
-import '/providers/emoji_model_manager.dart';
 import '/providers/score_manager.dart';
 import '/model/score_model.dart';
 import 'input_clear_managar.dart';
@@ -13,10 +11,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final StateNotifierProvider<ScoreManager, ScoreModel> scoreNotifierProvider =
     StateNotifierProvider<ScoreManager, ScoreModel>((ref) => ScoreManager());
-
-final StateNotifierProvider<EmojiManager, EmojiModel>
-    emojiModelNotifierProvider =
-    StateNotifierProvider<EmojiManager, EmojiModel>(((ref) => EmojiManager()));
 
 final StateNotifierProvider<InputTextManager, TextModel>
     emojiInputTextNotifierProvider =

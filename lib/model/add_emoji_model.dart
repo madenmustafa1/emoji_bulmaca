@@ -1,10 +1,13 @@
 class AddEmojiModel {
   final String emojiName;
-  final String uuid;
-  final bool read = false;
-  AddEmojiModel(this.emojiName, this.uuid);
+
+  AddEmojiModel(this.emojiName);
 
   Map<String, dynamic> toJson() {
-    return {'emojiName': emojiName, 'uuid': uuid, 'read': read};
+    return {
+      'emojiName': emojiName,
+    };
   }
+
+  Map<String, dynamic> asMap() => {'emojiName': emojiName};
 }

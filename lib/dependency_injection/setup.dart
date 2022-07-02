@@ -5,7 +5,7 @@ import '../pages/main_page/main_page_view_model.dart';
 import '../repo/repository-dio.dart';
 import '../repo/service/dio_service.dart';
 import '../utils/admob/ad_mob_constants.dart';
-import '../repo/repository.dart';
+import '../widgets/image/get_emoji_photo.dart';
 import '../view_model/emoji_operations_vm.dart';
 import '../utils/constants.dart';
 import '../utils/play_sound.dart';
@@ -19,8 +19,7 @@ void setup() {
   getIt.registerLazySingleton<PlaySound>(() => PlaySound());
   getIt.registerLazySingleton<EmojiOperationsViewModel>(
       () => EmojiOperationsViewModel());
-  getIt.registerLazySingleton<Repository>(() => Repository());
-
+  getIt.registerLazySingleton<GetEmojiPhotoWidget>(() => GetEmojiPhotoWidget());
 
   getIt.registerLazySingleton<RepositoryDio>(() => RepositoryDio());
   getIt.registerLazySingleton<DioService>(() => DioService());

@@ -1,5 +1,4 @@
-import 'package:emoji_bulmaca/dependency_injection/setup.dart';
-import 'package:firebase_core/firebase_core.dart';
+import '/dependency_injection/setup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +10,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
-  await Firebase.initializeApp();
+  //await Firebase.initializeApp();
    
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

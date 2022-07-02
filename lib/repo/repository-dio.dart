@@ -1,5 +1,5 @@
 // ignore_for_file: file_names
-
+import 'package:emoji_bulmaca/model/add_emoji_model.dart';
 import '/model/dio-model/emoji_response_model.dart';
 import '/model/dio-model/emoji_request_model.dart';
 import '/dependency_injection/setup.dart';
@@ -37,5 +37,10 @@ class RepositoryDio extends DioInterface {
   @override
   Future<EmojiResponseModel?> getEmoji(String auth, EmojiRequestModel emojiRequestModel) async {
     return await dioService.getEmoji(auth, emojiRequestModel);
+  }
+
+  @override
+  Future<bool> addEmojiUserRequest(String auth,AddEmojiModel addEmojiModel) async {
+    return await dioService.addEmojiUserRequest(auth, addEmojiModel);
   }
 }
