@@ -20,8 +20,6 @@ class CountWidget extends ConsumerWidget {
     String emojiKey = ref.read(emojiKeyNotifierProvider.notifier).getKey();
     ref.read(scoreNotifierProvider.notifier).getScoreCount(emojiKey);
 
-    debugPrint("123123124124");
-
     return Row(
       children: [
         constantsWidgets.getSizedBox(context, 32),

@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:emoji_bulmaca/pages/song_page/song_page_vm.dart';
-
-import '../pages/main_page/main_page_view_model.dart';
-import '../repo/repository-dio.dart';
-import '../repo/service/dio_service.dart';
-import '../utils/admob/ad_mob_constants.dart';
-import '../widgets/image/get_emoji_photo.dart';
-import '../view_model/emoji_operations_vm.dart';
-import '../utils/constants.dart';
-import '../utils/play_sound.dart';
+import '/pages/song_page/song_page_vm.dart';
+import '/pages/main_page/main_page_view_model.dart';
+import '/repo/repository-dio.dart';
+import '/repo/service/dio_service.dart';
+import '/utils/admob/ad_mob_constants.dart';
+import '/widgets/image/get_emoji_photo.dart';
+import '/view_model/emoji_operations_vm.dart';
+import '/utils/constants.dart';
+import '/utils/play_sound.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;

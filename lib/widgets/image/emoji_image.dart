@@ -25,7 +25,6 @@ class EmojiImage extends ConsumerWidget {
 
     //scoreProvider ??= ref.watch(scoreNotifierProvider);
     ScoreModel scoreProvider = ref.watch(scoreNotifierProvider);
-    debugPrint("1123123124124124");
 
     ref.read(emojiKeyNotifierProvider.notifier).setKey(emojiKey);
 

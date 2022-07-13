@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import '/model/dio-model/emoji_list_model_dio.dart';
 import '/dependency_injection/setup.dart';
 import '/model/dio-model/login_request_model.dart';
@@ -16,7 +15,7 @@ class MainPageViewModel {
         password: "madenapps_login*demo",
         key: "login_key");
     LoginResponseModel? result = await repositoryDio.login(loginRequestModel);
-    debugPrint(result!.token);
+
     _token = result;
     return result;
   }

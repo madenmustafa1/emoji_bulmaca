@@ -8,12 +8,12 @@ import '/model/dio-model/login_request_model.dart';
 import '/model/dio-model/emoji_list_model_dio.dart';
 import '/repo/service/dio_interface.dart';
 import '/dependency_injection/setup.dart';
-import 'package:flutter/material.dart';
 
 class DioService implements DioInterface {
   final SUCCESS = 200;
 
-  final BASE_URL = "http://192.168.1.21:7070/";
+  //final BASE_URL = "http://192.168.1.21:7070/";
+  final BASE_URL = "https://emojibulmaca.com/";
 
   final Dio dio = getIt<Dio>();
 
@@ -25,7 +25,6 @@ class DioService implements DioInterface {
         options: Options(headers: {"Authorization": auth}));
 
     if (response.statusCode != SUCCESS) {
-      debugPrint(response.data.toString());
       return null;
     }
 
@@ -41,7 +40,6 @@ class DioService implements DioInterface {
         await dio.post(BASE_URL + 'sign-in', data: loginRequestModel.asMap());
 
     if (response.statusCode != SUCCESS) {
-      debugPrint(response.data.toString());
       return null;
     }
 
@@ -76,7 +74,6 @@ class DioService implements DioInterface {
     }
     var isSuccess = response.data as bool;
 
-    debugPrint(isSuccess.toString());
     return isSuccess;
   }
 }

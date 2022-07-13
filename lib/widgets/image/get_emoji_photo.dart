@@ -39,13 +39,11 @@ class GetEmojiPhotoWidget {
                   ),
                 );
               } else {
-                debugPrint("e.toString(");
                 return const Center(child: CircularProgressIndicator());
               }
             }
           });
     } catch (e) {
-      debugPrint("e.toString(");
       return Container();
     }
     //Collection -> int -> kategori
